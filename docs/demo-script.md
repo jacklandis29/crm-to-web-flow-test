@@ -1,32 +1,33 @@
 # Demo Script
 
-A ~2–3 minute recorded walkthrough. The story: **put Claude between a CRM and a
-website, so when the data changes, an agent understands what the change means and
-publishes a clear, updated story to the site — automatically.**
+A ~2.5–3 minute recorded walkthrough. The story: **today, turning a CRM change
+into a published, written update is a manual chain. Put Claude in the middle and
+it writes the story and ships it — automatically.**
 
 Spoken lines are in quotes. Everything else is a stage direction.
 
 ---
 
-## 1. Set the stage (~30s)
+## 1. Set the stage (~40s)
 
-*Start on the live site (the GitHub Pages URL), or just talking to camera.*
+*Talking to camera, or on the live site.*
 
-> "Quick bit of framing first. This isn't me showing you something from my actual
-> job that I then have to hand-wave around — it's a small example I built from
-> scratch to show a pattern I think is really useful.
+> "Let me start with where this comes from. Part of what I do is track metrics
+> across our sector — the kind of numbers that matter for the partnerships we go
+> after. They live in a CRM, and the way we share them across the org is an internal
+> website: a dashboard people can actually look at.
 >
-> The idea is to put Claude *in between* your CRM and a website — could be internal,
-> could be external. Claude sits in the middle with all the context you'd give it:
-> whether that's Claude Enterprise's knowledge of your organization, or context
-> you've written in yourself. So when a number changes in the CRM, an agent picks
-> that up, understands what the change actually *means* in context, and
-> automatically pushes a clean, readable update out to the site.
+> Today, that's a manual chain. The CRM gets updated. Someone exports the data,
+> builds a Power BI dashboard, embeds it in the site — and then a person sits down
+> and *writes the story*: what the numbers mean, why they moved, why they matter.
+> Every time the data changes, someone rewrites that narrative by hand.
 >
-> What I've got here is a small, working version of that. In a real build you'd
-> wire in a lot more context and automate more of the plumbing. But the point of
-> this demo is narrow and specific: to show the value of putting a *contextual*
-> large language model between a CRM and a website."
+> So I built this to show what happens when you drop Claude into the middle of that
+> chain. Claude doesn't connect to the CRM, and it doesn't own the data — it sits
+> downstream. The moment something changes, that change flows to Claude through a
+> routine. Claude already has the context for what these numbers *mean*, so it writes
+> the story itself and pushes the updated site — automatically. That whole manual
+> step disappears."
 
 ---
 
@@ -34,34 +35,32 @@ Spoken lines are in quotes. Everything else is a stage direction.
 
 *Scroll the live site slowly.*
 
-> "Here's the site. It's a sales pipeline view. The numbers up top — closed-won,
-> pipeline, forecast — come straight from the CRM. Down here is the narrative, and
-> *that* part is written by Claude.
+> "Here's the site. The numbers up top are the data — straight from the source, not
+> anything Claude invented. Down here is the narrative, and that's the part Claude
+> writes.
 >
-> One deliberate design choice: Claude never touches the numbers. The CRM owns
-> those; Claude only writes the words. So it physically can't make a figure up —
-> and you can see every sentence it writes is tagged with the exact data field it
-> came from. Right now the team is sitting just behind goal."
+> The split is deliberate. Claude never connects to the CRM and it never owns or
+> alters a number — it only ever sees the validated data the routine hands it, and it
+> only writes the words around it. And every claim it makes is tagged with the exact
+> field it came from, so it's fully traceable. Right now the team's sitting just
+> behind goal."
 
 ---
 
-## 3. Change the CRM (~30s)
+## 3. Change the data (~30s)
 
-*Switch to your terminal (or the CRM data file).*
+*Switch to your terminal.*
 
-> "Now I'm going to play the part of someone in the business and just… change the
-> CRM. Let's say a big account just expanded."
-
-*Run:*
+> "Now watch what happens when the data changes. I'll play the part of the CRM
+> getting updated — say a big account just expanded."
 
 ```bash
 npm run crm:edit -- --opportunity OPP-2026-001 --amount 9185000
 npm run cloud:push
 ```
 
-> "That committed the change and kicked off the agent — the same way a webhook off
-> your CRM would trigger it in production. I haven't told the agent anything about
-> what I changed."
+> "That change just flowed to the agent through the routine — the same way a live
+> CRM update would trigger it. And I haven't told it a thing about what I changed."
 
 *Switch to the Claude routine view; let it run.*
 
@@ -69,28 +68,30 @@ npm run cloud:push
 
 ## 4. The payoff (~40s)
 
-*Once the routine finishes, refresh the live site (hard-refresh: Cmd+Shift+R).*
+*Once the routine finishes, hard-refresh the live site (Cmd+Shift+R).*
 
-> "Here's what happened. The agent woke up, pulled the new CRM data, compared it
-> against what was already live, and worked out *on its own* what changed — I never
-> told it.
+> "The agent picked up the change, compared it against what was already live, and
+> worked out on its own what moved — I never told it. And here's the result: it wrote
+> this banner — 'Northstar Logistics grew by eight million dollars… total pipeline is
+> now sixteen-point-two million.'
 >
-> And here's the result up top — this 'Updated from CRM' banner it wrote: 'Northstar
-> Logistics grew by eight million dollars… total pipeline is now sixteen-point-two
-> million.' It understood the change, wrote a plain-English summary of what it means,
-> and published it to the site. And every number is still tagged with the validated
-> field behind it — so it's accurate, not invented."
+> It understood the change, wrote the story in plain English, and published it to the
+> site. No export, no rebuilding a dashboard, no one writing copy by hand. And every
+> figure is still tied straight back to the real data."
 
 ---
 
-## 5. Close (~20s)
+## 5. Honest caveat + close (~30s)
 
-> "So that's the demo. To be clear about what it is: a small, working showcase of a
-> pattern, not a finished product. If you were really building this, you'd give the
-> agent a lot more context and automate more of the connective tissue between
-> systems. But what it shows is the core benefit — a contextual model sitting
-> between your CRM and your website, so the moment your data changes, the story your
-> audience reads changes with it: automatically, accurately, and in plain language."
+> "One bit of honesty about the demo: here I'm standing in a mock CRM and simplifying
+> the data path, so it's not the full production setup — in the real thing you'd have
+> the live CRM and a proper export feeding it. But the part I actually wanted to show
+> is real, and it's the part that matters: Claude sitting between your data and your
+> audience, turning a number change into a written, contextual update on its own.
+>
+> It collapses a whole manual process — export the data, build the dashboard, write
+> the story, publish it — into something that just happens the moment the data moves.
+> That's the time it saves. And that's the point."
 
 ---
 
@@ -108,7 +109,7 @@ npm run cloud:push
 
 - The Claude Routine usually takes ~1–3 minutes; plan to cut or narrate during the wait.
 - After the routine commits, GitHub Pages redeploys in ~15–20s. Hard-refresh
-  (Cmd+Shift+R) — the site now always loads the latest data, but the browser may hold
-  the old page shell.
-- Pick a number change that's obviously big on camera (the $9.18M edit takes one
-  account from ~$1.2M to ~$9.2M — very visible).
+  (Cmd+Shift+R) — the page always loads the latest data, but the browser can hold an
+  old shell.
+- Pick an obviously big change on camera (the $9.18M edit takes one account from
+  ~$1.2M to ~$9.2M — very visible).
