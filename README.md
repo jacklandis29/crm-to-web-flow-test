@@ -35,21 +35,36 @@ npm run serve      # open http://localhost:4173
 
 ## The demo (the one moment that sells it)
 
-The site starts **behind goal**. One command changes the CRM, regenerates the
-validated snapshot, re-authors the copy, and re-runs the guardrail — all locally,
-no network:
+Edit **any** company in the CRM — change an amount, close a deal, whatever — then
+run the routine. The AI notices what changed on its own and leads the page with it.
 
 ```bash
-npm run demo:win     # CivicGrid Energy closes → closed-won jumps to $3.0M (150% of goal)
+# 1. Edit a company (either way works):
+#    - open data/mock-crm.json and change a number by hand, or:
+npm run crm:edit -- --opportunity OPP-2026-007 --amount 5000000
+
+# 2. Run the routine locally (regenerate snapshot → author change-aware copy → validate):
+npm run refresh
+
+# 3. Refresh the browser.
 ```
 
-Refresh the page: the number flips, the progress bar goes green, and the AI copy
-rewrites itself to explain *why* — naming the deal that did it, each sentence
-tagged with the `pipeline.json` field behind it.
+The page now shows an **"Updated from CRM"** banner the AI wrote — naming the company,
+the from→to, and the ripple into total pipeline / forecast / goal — every claim tagged
+with the `pipeline.json` field behind it. The model figured out what changed; it never
+touched a number.
 
-Reset to the starting state to record another take:
+Undo your edit to record another take:
 
 ```bash
+npm run crm:restore        # revert the CRM to the committed baseline, regenerate
+```
+
+There's also a scripted one-liner if you just want the canned "deal closes" moment
+(CivicGrid Energy closes → closed-won jumps to $3.0M, 150% of goal):
+
+```bash
+npm run demo:win
 npm run demo:reset
 ```
 
@@ -70,16 +85,18 @@ npm run demo:reset
 | --- | --- |
 | `data/mock-crm.json` + MCP server | Salesforce / HubSpot via API or MCP |
 | `sync_from_mock_crm.py` | Scheduled ETL into a validated dataset |
-| `npm run demo:win` (local) | A CRM webhook / nightly job |
+| `crm:edit` + `npm run refresh` (local) | A CRM webhook / nightly job |
+| `changeReport` in `pipeline.json` | The diff the routine reasons over |
 | `simulate_ai_summary.py` | A cloud **Claude Routine** authoring the copy |
 | `validate_ai_summary.py` | The same guardrail, in CI |
 | GitHub Pages | Your internal dashboard host |
 
-The local `demo:*` commands keep the live demo deterministic. The cloud version
-is the same contract, triggered by a GitHub Release that wakes a Claude Routine —
-see [docs/full-automation.md](docs/full-automation.md) and
-[docs/claude-routine-instructions.md](docs/claude-routine-instructions.md). The
-`cloud:win` / `cloud:reset` scripts drive that path.
+The local commands keep the live demo deterministic. The cloud version is the same
+contract: edit the CRM, run `npm run cloud:push` to commit the change and publish a
+GitHub Release, and a Claude Routine wakes, re-runs the sync, authors the change-aware
+copy, validates, and commits to main — see
+[docs/full-automation.md](docs/full-automation.md) and
+[docs/claude-routine-instructions.md](docs/claude-routine-instructions.md).
 
 ## Docs
 

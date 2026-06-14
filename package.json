@@ -5,13 +5,17 @@
   "description": "Mock CRM -> validated snapshot -> AI-authored website copy. A sanitized demo of CRM-to-website automation with an anti-hallucination guardrail.",
   "scripts": {
     "serve": "python3 -m http.server 4173 -d site",
+    "refresh": "npm run generate && npm run validate",
     "generate": "npm run crm:sync && npm run ai:local",
     "validate": "python3 scripts/sync_from_mock_crm.py --check && python3 scripts/validate_ai_summary.py",
-    "demo:win": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1250000 && npm run generate && npm run validate",
-    "demo:reset": "python3 scripts/reset_demo_baseline.py && npm run validate",
+    "crm:edit": "python3 scripts/mock_crm_update.py",
+    "crm:restore": "git checkout -- data/mock-crm.json && npm run generate && npm run validate",
     "crm:mcp": "python3 scripts/mock_crm_mcp_server.py",
     "crm:sync": "python3 scripts/sync_from_mock_crm.py",
     "ai:local": "python3 scripts/simulate_ai_summary.py",
+    "demo:win": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1250000 && npm run generate && npm run validate",
+    "demo:reset": "python3 scripts/reset_demo_baseline.py && npm run validate",
+    "cloud:push": "python3 scripts/publish_crm_change.py",
     "cloud:win": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1250000 --commit --push --release",
     "cloud:reset": "python3 scripts/reset_demo_baseline.py --commit --push"
   }

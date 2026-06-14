@@ -99,6 +99,59 @@ h1 {
   box-shadow: var(--shadow);
 }
 
+/* ---------- Change banner ---------- */
+.change-banner {
+  position: relative;
+  border: 1px solid #dfe3fb;
+  border-left: 4px solid var(--brand);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #f2f4ff, var(--surface) 70%);
+  box-shadow: var(--shadow);
+  padding: 18px 22px;
+  margin-bottom: 14px;
+}
+.change-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  padding: 4px 11px 4px 9px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.change-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  animation: pulse 1.8s ease-out infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); }
+  70% { box-shadow: 0 0 0 7px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+.change-banner h2 {
+  margin: 0 0 7px;
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.change-banner p {
+  max-width: 780px;
+  margin: 0 0 13px;
+  color: var(--ink-soft);
+  font-size: 1.04rem;
+  line-height: 1.5;
+}
+
 /* ---------- Goal banner ---------- */
 .goal-card {
   border: 1px solid var(--line);
@@ -599,4 +652,5 @@ body.ready .reveal:nth-child(6) { transition-delay: 0.32s; }
   .progress-fill,
   .bar-amount,
   .bar-weighted { transition: none; }
+  .change-badge::before { animation: none; }
 }

@@ -93,6 +93,18 @@ function sourceChips(sources) {
   return sources.map((source) => `<code>${source}</code>`).join("");
 }
 
+function renderChange(summary) {
+  const banner = $("#changeBanner");
+  if (!summary.change) {
+    banner.hidden = true;
+    return;
+  }
+  banner.hidden = false;
+  $("#changeHeadline").textContent = summary.change.headline;
+  $("#changeBody").textContent = summary.change.body;
+  $("#changeSources").innerHTML = sourceChips(summary.change.sources);
+}
+
 function renderAI(summary) {
   $("#aiStatus").textContent = `AI: ${summary.metadata.generatedBy}`;
   $("#copyHeadline").textContent = summary.hero.headline;
@@ -188,6 +200,7 @@ async function init() {
     const [pipeline, audit, summary] = await Promise.all(responses.map((r) => r.json()));
 
     renderHeader(pipeline);
+    renderChange(summary);
     renderGoal(pipeline);
     renderKpis(pipeline);
     renderAI(summary);

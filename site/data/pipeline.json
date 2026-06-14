@@ -4,7 +4,7 @@
     "sourceFile": "data/mock-crm.json",
     "sourceSheet": "mock_crm.opportunities",
     "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
-    "generatedAt": "2026-06-14T22:34:44+00:00",
+    "generatedAt": "2026-06-14T22:56:54+00:00",
     "dataAsOf": "2026-06-14",
     "staleThresholdDays": 21,
     "guardrail": "This file is a validated public snapshot of mock CRM data; AI-authored text lives in ai-summary.json.",
@@ -315,5 +315,13 @@
       "expectedCloseDate": "2026-06-02",
       "lastUpdated": "2026-06-02"
     }
-  ]
+  ],
+  "changeReport": {
+    "hasChanges": false,
+    "summary": "No changes since the last published snapshot.",
+    "previousRevision": 18,
+    "previousSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
+    "opportunities": [],
+    "metrics": {}
+  }
 }

@@ -48,6 +48,104 @@ def largest_closed_won(opportunities: list[dict[str, Any]]) -> tuple[int, dict[s
     return max(won, key=lambda pair: pair[1]["amount"])
 
 
+def _lead_change(report: dict[str, Any]) -> dict[str, Any] | None:
+    """Pick the single most demo-worthy opportunity change to lead with."""
+    opp_changes = report.get("opportunities", [])
+    updated = [c for c in opp_changes if c.get("changeType") == "updated"]
+    for change in updated:
+        stage = change.get("fields", {}).get("stage")
+        if stage and stage.get("to") == "Closed Won":
+            return change
+    amount_changes = [c for c in updated if "amount" in c.get("fields", {})]
+    if amount_changes:
+        return max(amount_changes, key=lambda c: abs(c["fields"]["amount"].get("delta", 0)))
+    if updated:
+        return updated[0]
+    return opp_changes[0] if opp_changes else None
+
+
+def build_change_block(pipeline: dict[str, Any], report: dict[str, Any] | None) -> dict[str, Any] | None:
+    """The AI's narration of what changed this refresh, fully source-keyed.
+
+    This is what makes the page say "here's what just happened" instead of only
+    "here is the current state" — the payoff when someone edits the CRM live.
+    """
+    if not report or not report.get("hasChanges"):
+        return None
+
+    metrics = pipeline["metrics"]
+    metric_changes = report.get("metrics", {})
+    lead = _lead_change(report)
+    sources: list[str] = []
+
+    if lead is None:
+        headline = "The CRM snapshot was refreshed"
+        body = "Pipeline metrics moved since the last published snapshot."
+    else:
+        account = lead["account"]
+        index = lead.get("index")
+        change_type = lead.get("changeType")
+        fields = lead.get("fields", {})
+
+        if change_type == "added":
+            headline = f"{account} was added to the pipeline"
+            body = f"A new opportunity, {account}, showed up in the CRM since the last refresh. "
+            if index is not None:
+                sources.append(f"opportunities[{index}].amount")
+        elif change_type == "removed":
+            headline = f"{account} dropped out of the pipeline"
+            body = f"{account} is no longer in the CRM snapshot. "
+        else:
+            stage = fields.get("stage")
+            amount = fields.get("amount")
+            if stage and stage.get("to") == "Closed Won":
+                won_amount = pipeline["opportunities"][index]["amount"] if index is not None else amount["to"]
+                headline = f"{account} just closed — {money(won_amount)} won"
+                body = f"{account} moved from {stage['from']} to Closed Won since the last refresh. "
+                if index is not None:
+                    sources += [f"opportunities[{index}].stage", f"opportunities[{index}].amount"]
+            elif amount:
+                delta = amount.get("delta", 0)
+                direction = "grew" if delta > 0 else "shrank"
+                headline = f"{account} {direction} by {money(abs(delta))}"
+                body = (
+                    f"Since the last refresh, {account} moved from {money(amount['from'])} to "
+                    f"{money(amount['to'])}. "
+                )
+                if index is not None:
+                    sources.append(f"opportunities[{index}].amount")
+            else:
+                changed = ", ".join(fields.keys())
+                headline = f"{account} was updated in the CRM"
+                body = f"{account} changed since the last refresh ({changed}). "
+
+    # Quantify the ripple into the headline metrics.
+    impact: list[str] = []
+    if "pipelineValue" in metric_changes:
+        impact.append(f"total pipeline at {money(metrics['pipelineValue'])}")
+        sources.append("metrics.pipelineValue")
+    if "weightedPipeline" in metric_changes:
+        impact.append(f"weighted forecast at {money(metrics['weightedPipeline'])}")
+        sources.append("metrics.weightedPipeline")
+    if "closedWon" in metric_changes:
+        ahead = metrics["closedWonDelta"] >= 0
+        impact.append(
+            f"closed-won at {money(metrics['closedWon'])}, "
+            f"{money(abs(metrics['closedWonDelta']))} {'ahead of' if ahead else 'behind'} goal"
+        )
+        sources += ["metrics.closedWon", "metrics.closedWonDelta"]
+    if impact:
+        body += "That puts " + "; ".join(impact) + "."
+
+    # De-duplicate while preserving order; guarantee at least one resolvable key.
+    seen: set[str] = set()
+    ordered = [s for s in sources if not (s in seen or seen.add(s))]
+    if not ordered:
+        ordered = ["metrics.pipelineValue"]
+
+    return {"headline": headline, "body": body.strip(), "sources": ordered}
+
+
 def build_summary(pipeline: dict[str, Any], mode: str) -> dict[str, Any]:
     metrics = pipeline["metrics"]
     metadata = pipeline["metadata"]
@@ -159,7 +257,7 @@ def build_summary(pipeline: dict[str, Any], mode: str) -> dict[str, Any]:
             f"{money(neg['amount'])} sitting in Negotiation."
         )
 
-    return {
+    summary: dict[str, Any] = {
         "metadata": {
             "generatedBy": mode,
             "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
@@ -199,6 +297,11 @@ def build_summary(pipeline: dict[str, Any], mode: str) -> dict[str, Any]:
             },
         ],
     }
+
+    change = build_change_block(pipeline, pipeline.get("changeReport"))
+    if change is not None:
+        summary["change"] = change
+    return summary
 
 
 def stage_count(by_stage: list[dict[str, Any]], name: str) -> int:

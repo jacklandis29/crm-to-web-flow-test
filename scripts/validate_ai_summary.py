@@ -89,6 +89,13 @@ def main() -> int:
                 else:
                     errors.extend(validate_card(card, pipeline, index))
 
+        change = summary.get("change")
+        if change is not None:
+            if not isinstance(change, dict):
+                errors.append("change must be an object")
+            else:
+                errors.extend(validate_card(change, pipeline, "change"))
+
         summary_text = json.dumps(summary)
         if "TODO" in summary_text or "lorem" in summary_text.lower():
             errors.append("summary contains placeholder text")

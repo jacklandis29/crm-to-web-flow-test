@@ -33,21 +33,34 @@ service.
 > Claude-authored copy — and notice every sentence is tagged with the exact
 > `pipeline.json` field it used. That's the guardrail, made visible."
 
-**4. Change the CRM (15s).** In a terminal:
+**4. Change the CRM yourself (15s).** Edit any company — by hand in
+`data/mock-crm.json`, or with one command. Don't say which one you changed:
 
 ```bash
-npm run demo:win
+npm run crm:edit -- --opportunity OPP-2026-001 --amount 9185000
 ```
 
-> "A deal just closed in the CRM — CivicGrid Energy. That one command updated the
-> CRM, re-ran validation into a fresh snapshot, re-authored the copy, and re-ran
-> the guardrail. Watch the validation pass."
+> "I'm going into the CRM and bumping one account's number — let's say a big
+> expansion just landed. Nothing on the website knows about this yet."
+
+Then run the routine:
+
+```bash
+npm run refresh
+```
+
+> "That re-ran validation into a fresh snapshot and handed it to the AI step — which
+> diffed it against what's live and wrote copy about the difference. Watch the
+> guardrail pass."
 
 **5. The payoff (20s).** Refresh the browser.
-> "Closed-won jumps to $3 million — 150% of goal, a million ahead. The bar goes
-> green. And the AI copy rewrote *itself*: it now names CivicGrid's close as the
-> reason, still citing the validated field for every number. The model changed the
-> story. It never changed a number."
+> "Up top — an 'Updated from CRM' banner the AI wrote on its own. I never told it
+> what I changed; it compared the new numbers to the published ones and figured it
+> out: Northstar Logistics grew $8 million, total pipeline is now $16.2 million. And
+> every figure carries the validated field it came from. The model wrote the story
+> about my edit. It never touched a number."
+
+Reset between takes with `npm run crm:restore`.
 
 **6. Close (15s).**
 > "Locally this is a deterministic stand-in so the demo is repeatable. In
@@ -59,12 +72,15 @@ npm run demo:win
 ## Reset between takes
 
 ```bash
+npm run crm:restore   # undo any hand edit, back to the committed baseline
+# or, for the scripted demo:win flow:
 npm run demo:reset
 ```
 
 ## If you want to show the cloud path too
 
-`docs/full-automation.md` covers `npm run cloud:win`, which pushes the CRM change
-and publishes the GitHub Release that triggers the Claude Routine. Leave this out
+`docs/full-automation.md` covers `npm run cloud:push` (publish any hand edit) and
+`npm run cloud:win` (the scripted close), which push the CRM change and publish the
+GitHub Release that triggers the Claude Routine. Leave this out
 of the core recording — it depends on GitHub Pages redeploy timing — and mention
 it verbally instead.

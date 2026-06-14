@@ -35,6 +35,8 @@ Steps:
 4. Run:
    npm run crm:sync
 5. Read site/data/pipeline.json. This is the validated source of truth for all published numbers.
+   - It includes a `changeReport` block describing what moved since the last published
+     snapshot (which opportunities changed, from/to values, and metric deltas).
 6. Update site/data/ai-summary.json as the AI-authored copy step.
    - Do not change any numeric facts.
    - Do not edit data/mock-crm.json.
@@ -42,6 +44,11 @@ Steps:
    - Do not manually edit site/data/audit-log.json.
    - Every substantive claim in the copy must include source keys that resolve into site/data/pipeline.json.
    - The lead copy must explicitly say whether closed-won sales are ahead of or behind the goal using metrics.closedWon, metrics.closedWonGoal, metrics.closedWonDelta, and metrics.closedWonAttainment.
+   - If `changeReport.hasChanges` is true, add a top-level `change` object ({headline, body,
+     sources}) that leads with WHAT CHANGED this refresh — name the opportunity, state the
+     from/to, and quantify the ripple into the metrics. Cite the changed opportunity's current
+     value (e.g. opportunities[i].amount) and the moved metrics. Omit `change` when there are
+     no changes.
 7. Run:
    npm run validate
 8. If validation fails, fix only site/data/ai-summary.json unless the failure says the CRM sync step failed.

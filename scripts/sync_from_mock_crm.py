@@ -10,8 +10,10 @@ from pathlib import Path
 
 from mock_crm_store import (
     build_audit,
+    build_change_report,
     build_pipeline,
     load_database,
+    previous_published_pipeline,
     stable_payload,
     write_json,
     write_site_snapshot,
@@ -45,6 +47,7 @@ def main() -> int:
             if stable_payload(audit) != stable_payload(existing_audit):
                 raise ValueError("site/data/audit-log.json is stale for data/mock-crm.json.")
         else:
+            pipeline["changeReport"] = build_change_report(pipeline, previous_published_pipeline())
             write_json(pipeline_path, pipeline)
             write_json(audit_path, audit)
 
