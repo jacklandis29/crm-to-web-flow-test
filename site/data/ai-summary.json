@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedBy": "local-simulated-ai",
-    "generatedAt": "2026-06-14T21:21:37+00:00",
+    "generatedBy": "github-actions-local-fallback",
+    "generatedAt": "2026-06-14T21:41:29+00:00",
     "sourceFile": "site/data/pipeline.json",
     "sourceSha256": "044d1d411f237ca15f3ee1b39b6bf30641d5e2dafdbc1453e3e256da294b45c6",
     "dataAsOf": "2026-06-13",

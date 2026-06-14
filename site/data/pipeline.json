@@ -4,7 +4,7 @@
     "sourceFile": "data/mock-crm.json",
     "sourceSheet": "mock_crm.opportunities",
     "sourceSha256": "044d1d411f237ca15f3ee1b39b6bf30641d5e2dafdbc1453e3e256da294b45c6",
-    "generatedAt": "2026-06-14T21:21:37+00:00",
+    "generatedAt": "2026-06-14T21:41:29+00:00",
     "dataAsOf": "2026-06-13",
     "staleThresholdDays": 21,
     "guardrail": "This file is a validated public snapshot of mock CRM data; AI-authored text lives in ai-summary.json.",
