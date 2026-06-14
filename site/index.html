@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CRM to Claude Website Demo</title>
+    <title>CRM Pipeline Status</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -11,77 +11,70 @@
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Mock CRM MCP demo</p>
-          <h1>CRM facts in. Claude copy out.</h1>
+          <p class="eyebrow">Mock CRM MCP Demo</p>
+          <h1>CRM Pipeline Status</h1>
         </div>
-        <div class="status-pill">
-          <span class="status-dot"></span>
-          <span id="refreshStatus">Loading CRM revision</span>
+        <div class="header-meta">
+          <span id="revisionBadge">Loading CRM</span>
+          <span id="lastRefresh">Loading snapshot</span>
         </div>
       </header>
 
       <main>
-        <section class="proof-grid" aria-label="CRM and Claude proof">
-          <article class="fact-panel">
-            <div class="panel-label">
-              <span>Validated CRM number</span>
-              <strong id="crmSource">MockCRM</strong>
-            </div>
-            <p class="metric-label">Closed-won sales</p>
-            <strong id="closedWonValue" class="hero-number">$0</strong>
-            <div id="goalDelta" class="delta-pill">Loading goal status</div>
-            <div class="fact-row">
-              <span>Goal</span>
-              <strong id="goalValue">$0</strong>
-            </div>
-            <div class="fact-row">
-              <span>Pipeline</span>
-              <strong id="pipelineValue">$0</strong>
-            </div>
-            <div class="fact-row">
-              <span>Attainment</span>
-              <strong id="attainmentValue">0%</strong>
-            </div>
+        <section class="kpi-strip" aria-label="CRM metrics">
+          <article class="kpi primary">
+            <span class="label">Closed-won sales</span>
+            <strong id="closedWonValue">$0</strong>
+            <small id="goalDelta">Loading goal status</small>
           </article>
-
-          <article class="copy-panel">
-            <div class="panel-label">
-              <span>Claude-authored copy</span>
-              <strong id="aiStatus">AI pending</strong>
-            </div>
-            <h2 id="copyHeadline">Loading latest summary</h2>
-            <p id="copyBody" class="copy-body"></p>
-            <div class="source-strip" id="copySources"></div>
+          <article class="kpi">
+            <span class="label">Goal</span>
+            <strong id="goalValue">$0</strong>
+            <small id="attainmentValue">0% attainment</small>
+          </article>
+          <article class="kpi">
+            <span class="label">Total pipeline</span>
+            <strong id="pipelineValue">$0</strong>
+            <small id="recordCount">0 CRM records</small>
           </article>
         </section>
 
-        <section class="evidence-band" aria-label="Source evidence">
-          <div>
-            <span class="evidence-label">CRM revision</span>
-            <strong id="crmRevision">-</strong>
+        <section class="summary-section" aria-label="Claude generated summary">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Claude output</p>
+              <h2>Website copy generated from the validated CRM snapshot</h2>
+            </div>
+            <span id="aiStatus">AI pending</span>
           </div>
-          <div>
-            <span class="evidence-label">Source hash</span>
-            <strong id="sourceHash">-</strong>
+          <div class="summary-copy">
+            <h3 id="copyHeadline">Loading latest summary</h3>
+            <p id="copyBody"></p>
           </div>
-          <div>
-            <span class="evidence-label">Validation</span>
-            <strong id="auditStatus">-</strong>
-          </div>
+          <div class="source-row" id="copySources"></div>
         </section>
 
-        <section class="flow-band" aria-label="Flow">
-          <div>
-            <span class="flow-index">1</span>
-            <strong>Mock CRM changes</strong>
+        <section class="lineage-section" aria-label="Data lineage">
+          <div class="lineage-item">
+            <span class="step">1</span>
+            <div>
+              <strong>Mock CRM changed</strong>
+              <small id="crmSource">MockCRM</small>
+            </div>
           </div>
-          <div>
-            <span class="flow-index">2</span>
-            <strong>Facts are frozen</strong>
+          <div class="lineage-item">
+            <span class="step">2</span>
+            <div>
+              <strong>Snapshot validated</strong>
+              <small id="auditStatus">0 checks</small>
+            </div>
           </div>
-          <div>
-            <span class="flow-index">3</span>
-            <strong>Claude rewrites copy</strong>
+          <div class="lineage-item">
+            <span class="step">3</span>
+            <div>
+              <strong>Claude rewrote copy</strong>
+              <small id="sourceHash">hash pending</small>
+            </div>
           </div>
         </section>
       </main>

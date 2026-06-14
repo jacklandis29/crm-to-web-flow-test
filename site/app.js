@@ -11,29 +11,27 @@ const percent = new Intl.NumberFormat("en-US", {
 
 const $ = (selector) => document.querySelector(selector);
 
-function deltaText(delta) {
+function goalStatus(delta) {
   const direction = delta >= 0 ? "ahead of goal" : "behind goal";
   return `${money.format(Math.abs(delta))} ${direction}`;
 }
 
 function renderFacts(pipeline) {
   const { metadata, metrics } = pipeline;
-  const revision = metadata.sourceRevision ? `rev ${metadata.sourceRevision}` : "snapshot";
   const source = metadata.sourceSystem || "CRM";
+  const revision = metadata.sourceRevision ? `rev ${metadata.sourceRevision}` : "snapshot";
 
-  $("#refreshStatus").textContent = `${source} ${revision}`;
-  $("#crmSource").textContent = source;
+  $("#revisionBadge").textContent = `${source} ${revision}`;
+  $("#lastRefresh").textContent = `Data as of ${metadata.dataAsOf}`;
+  $("#crmSource").textContent = `${source} ${revision}`;
   $("#closedWonValue").textContent = money.format(metrics.closedWon);
+  $("#goalDelta").textContent = goalStatus(metrics.closedWonDelta);
+  $("#goalDelta").className = metrics.closedWonDelta >= 0 ? "positive" : "negative";
   $("#goalValue").textContent = money.format(metrics.closedWonGoal);
+  $("#attainmentValue").textContent = `${percent.format(metrics.closedWonAttainment)} attainment`;
   $("#pipelineValue").textContent = money.format(metrics.pipelineValue);
-  $("#attainmentValue").textContent = percent.format(metrics.closedWonAttainment);
-  $("#crmRevision").textContent = `${source} ${revision}`;
-  $("#sourceHash").textContent = metadata.sourceSha256.slice(0, 12);
-
-  const delta = $("#goalDelta");
-  delta.textContent = deltaText(metrics.closedWonDelta);
-  delta.classList.toggle("positive", metrics.closedWonDelta >= 0);
-  delta.classList.toggle("negative", metrics.closedWonDelta < 0);
+  $("#recordCount").textContent = `${metrics.totalRecords} CRM records`;
+  $("#sourceHash").textContent = `sha256 ${metadata.sourceSha256.slice(0, 12)}`;
 }
 
 function renderCopy(summary) {
@@ -47,7 +45,7 @@ function renderCopy(summary) {
 
 function renderAudit(audit) {
   const passing = audit.checks.filter((check) => check.status === "pass").length;
-  $("#auditStatus").textContent = `${passing} checks passed`;
+  $("#auditStatus").textContent = `${passing} validation checks passed`;
 }
 
 function showError(error) {
