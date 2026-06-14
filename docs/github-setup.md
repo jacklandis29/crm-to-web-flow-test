@@ -5,41 +5,20 @@ Use this when you want the full cloud demo with direct-to-main updates and GitHu
 ## One-Time Setup
 
 1. Push this project to `jacklandis29/crm-to-web-flow-test`.
-2. Go to **Settings -> Actions -> General** and allow GitHub Actions.
-3. Set workflow permissions to **Read and write permissions**.
-4. Go to **Settings -> Pages** and set the source to **GitHub Actions**.
-5. Add `ANTHROPIC_API_KEY` in **Settings -> Secrets and variables -> Actions** if you want GitHub Actions to use Claude Code Action.
+2. Go to **Settings -> Pages** and set the source to **GitHub Actions** so the static site can deploy.
+3. Create the Claude Routine using `docs/claude-routine-instructions.md`.
 
-Without `ANTHROPIC_API_KEY`, the workflow uses the deterministic fallback summary generator so the automation still runs.
+GitHub Actions is only used to deploy Pages in this version. Claude Routine owns the data refresh and AI copy step.
 
 ## Primary Mock CRM Flow
 
 Run:
 
 ```bash
-npm run crm:win-actions
+npm run crm:win
 ```
 
-This updates `data/mock-crm.json`, commits it, pushes to `main`, and triggers `.github/workflows/mock-crm-to-main.yml`.
-
-The workflow:
-
-1. Syncs mock CRM data into `site/data/pipeline.json`.
-2. Writes `site/data/audit-log.json`.
-3. Uses Claude Code Action, or fallback copy generation, to write `site/data/ai-summary.json`.
-4. Validates source keys.
-5. Commits generated site data to `main`.
-6. Deploys GitHub Pages.
-
-## Claude Routine Flow
-
-Use this when you want the Claude Routine UI to be the visible AI automation:
-
-```bash
-npm run crm:win-routine
-```
-
-This updates `data/mock-crm.json`, commits it with `[routine]`, pushes it, and publishes a `crm-refresh-*` GitHub release. The mock CRM workflow skips `[routine]` commits, so the Routine owns that run.
+This updates `data/mock-crm.json`, commits it with `[routine]`, pushes it, and publishes a `crm-refresh-*` GitHub release. The release wakes the Claude Routine.
 
 Routine instructions live here:
 
@@ -64,5 +43,3 @@ The older Excel route still exists for comparison:
 ```bash
 npm run watch:excel
 ```
-
-It triggers `.github/workflows/crm-export-to-main.yml`.

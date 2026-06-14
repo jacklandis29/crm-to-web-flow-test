@@ -9,7 +9,7 @@ This demo treats the CRM as a service instead of treating Excel as the primary s
 - `scripts/sync_from_mock_crm.py`: deterministic CRM-to-public-snapshot sync.
 - `site/data/pipeline.json`: validated website facts generated from the CRM.
 - `site/data/ai-summary.json`: AI-authored copy generated from validated facts.
-- `.github/workflows/mock-crm-to-main.yml`: cloud refresh workflow for mock CRM changes.
+- `docs/claude-routine-instructions.md`: the Claude Routine prompt that owns the cloud refresh.
 
 ## MCP Tools
 
@@ -47,21 +47,10 @@ The website does not publish directly from AI output. It publishes from a valida
 
 MCP is not the trigger by itself. It gives Claude a way to read CRM data when Claude is already running.
 
-Use one of these trigger paths:
-
-- **GitHub Actions path:** change `data/mock-crm.json` and push it. `.github/workflows/mock-crm-to-main.yml` runs automatically.
-- **Claude Routine path:** publish a release after a CRM change. The Routine wakes from `Release published` and queries/uses the CRM snapshot.
-
-For a one-command demo that changes the mock CRM and triggers GitHub Actions:
-
-```bash
-npm run crm:win-actions
-```
-
 For a one-command demo that changes the mock CRM and triggers the Claude Routine through a release:
 
 ```bash
-npm run crm:win-routine
+npm run crm:win
 ```
 
-Both commands update `OPP-2026-002` to `Closed Won`, which moves closed-won sales further ahead of goal.
+The command updates `OPP-2026-002` to `Closed Won`, pushes the CRM change, and publishes a `crm-refresh-*` release. The release wakes the Claude Routine, which syncs the CRM snapshot, writes copy, validates, and commits generated website data.

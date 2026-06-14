@@ -3,18 +3,18 @@
 ```mermaid
 flowchart LR
   CRM["Mock CRM\nsource data"] --> MCP["Mock CRM\nMCP server"]
-  CRM --> Event["CRM change event\ncommit or release"]
-  Event --> Action["GitHub Actions\nor Claude Routine"]
+  CRM --> Event["CRM change commit\nand crm-refresh release"]
+  Event --> Action["Claude Routine"]
   MCP --> Action
   Action --> Validate["Validate CRM schema\nand parse rows"]
   Validate --> JSON["Generated JSON\npipeline + audit"]
-  JSON --> AI["Claude Code Action,\nRoutine, or fallback"]
+  JSON --> AI["Claude-authored copy"]
   AI --> Copy["AI summary JSON\ncopy only"]
   JSON --> BI["Embedded analytics\nPower BI-style layer"]
   BI --> Site["Website"]
   Copy --> Site
   Action --> Main["Commit generated files\nto main"]
-  Action --> Pages["GitHub Pages deploy"]
+  Main --> Pages["GitHub Pages deploy"]
   Pages --> Site
 ```
 
@@ -32,4 +32,4 @@ flowchart LR
 
 ## Where An LLM Fits
 
-Claude Code Action or a Claude Routine can replace the local simulated AI step. The contract stays the same: the agent receives validated JSON, writes bounded website copy, and includes evidence keys for every published claim.
+The Claude Routine replaces the local simulated AI step in the cloud demo. The contract stays the same: the agent receives validated JSON, writes bounded website copy, and includes evidence keys for every published claim.
