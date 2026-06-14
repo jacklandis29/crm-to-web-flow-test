@@ -9,11 +9,31 @@ const percent = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+const snapshotTime = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+  timeZoneName: "short",
+});
+
 const $ = (selector) => document.querySelector(selector);
 
 function goalStatus(delta) {
   const direction = delta >= 0 ? "ahead of goal" : "behind goal";
   return `${money.format(Math.abs(delta))} ${direction}`;
+}
+
+function formatSnapshotTime(metadata) {
+  const timestamp = metadata.sourceUpdatedAt || metadata.generatedAt;
+  const parsed = timestamp ? new Date(timestamp) : null;
+
+  if (parsed && !Number.isNaN(parsed.valueOf())) {
+    return snapshotTime.format(parsed);
+  }
+
+  return metadata.dataAsOf;
 }
 
 function renderFacts(pipeline) {
@@ -22,7 +42,7 @@ function renderFacts(pipeline) {
   const revision = metadata.sourceRevision ? `rev ${metadata.sourceRevision}` : "snapshot";
 
   $("#revisionBadge").textContent = `${source} ${revision}`;
-  $("#lastRefresh").textContent = `Data as of ${metadata.dataAsOf}`;
+  $("#lastRefresh").textContent = `Data as of ${formatSnapshotTime(metadata)}`;
   $("#crmSource").textContent = `${source} ${revision}`;
   $("#closedWonValue").textContent = money.format(metrics.closedWon);
   $("#goalDelta").textContent = goalStatus(metrics.closedWonDelta);
