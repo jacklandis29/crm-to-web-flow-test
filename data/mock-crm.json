@@ -2,9 +2,9 @@
   "metadata": {
     "system": "MockCRM",
     "environment": "sanitized-demo",
-    "revision": 8,
-    "updatedAt": "2026-06-14T21:16:00Z",
-    "changedBy": "demo.user",
+    "revision": 9,
+    "updatedAt": "2026-06-14T21:44:02Z",
+    "changedBy": "demo.crm.user",
     "description": "Synthetic CRM data used to demonstrate a CRM-to-website automation flow. Baseline starts behind goal so the demo change is obvious."
   },
   "opportunities": [
@@ -27,12 +27,12 @@
       "segment": "Strategic",
       "region": "West",
       "owner": "Jordan Miles",
-      "stage": "Proposal",
+      "stage": "Closed Won",
       "forecastCategory": "Best Case",
-      "amount": 920000,
-      "probability": 0.64,
+      "amount": 1500000.0,
+      "probability": 1.0,
       "expectedCloseDate": "2026-08-03",
-      "lastUpdated": "2026-06-10"
+      "lastUpdated": "2026-06-14"
     },
     {
       "opportunityId": "OPP-2026-003",
@@ -179,6 +179,27 @@
       "opportunityId": "OPP-2026-005",
       "createdAt": "2026-06-14T21:16:00Z",
       "summary": "Reset demo baseline so closed-won sales starts below the target."
+    },
+    {
+      "id": "evt-20260614-214402Z",
+      "type": "opportunity.updated",
+      "opportunityId": "OPP-2026-002",
+      "createdAt": "2026-06-14T21:44:02Z",
+      "actor": "demo.crm.user",
+      "changes": {
+        "amount": {
+          "from": 920000,
+          "to": 1500000.0
+        },
+        "stage": {
+          "from": "Proposal",
+          "to": "Closed Won"
+        },
+        "probability": {
+          "from": 0.64,
+          "to": 1.0
+        }
+      }
     }
   ]
 }
