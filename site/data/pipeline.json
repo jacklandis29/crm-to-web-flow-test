@@ -3,27 +3,27 @@
     "demoName": "Sanitized CRM to Web Flow",
     "sourceFile": "data/crm-export-june-2026.xlsx",
     "sourceSheet": "CRM_Export",
-    "sourceSha256": "750f6852e098c4f347253a70aaa620ab1f3b8c6c94f8e4c908bd50b19c65eca6",
-    "generatedAt": "2026-06-14T20:00:04+00:00",
+    "sourceSha256": "3fc11b52cc3a63c9b5aa0e16db5da8fa6952b0a7f77846d7aae1e925bc8f3650",
+    "generatedAt": "2026-06-14T20:35:20+00:00",
     "dataAsOf": "2026-06-13",
     "staleThresholdDays": 21,
     "guardrail": "This file contains validated CRM-derived metrics only; AI-authored text lives in ai-summary.json."
   },
   "metrics": {
     "totalRecords": 24,
-    "pipelineValue": 14225000.0,
-    "weightedPipeline": 8502500.0,
+    "pipelineValue": 17225000.0,
+    "weightedPipeline": 11502500.0,
     "openPipeline": 11510000.0,
-    "closedWon": 1750000.0,
+    "closedWon": 4750000.0,
     "closedWonGoal": 2000000,
-    "closedWonDelta": -250000.0,
-    "closedWonAttainment": 0.875,
+    "closedWonDelta": 2750000.0,
+    "closedWonAttainment": 2.375,
     "closedLost": 965000.0,
     "averageProbability": 0.5162,
     "staleOpenCount": 6,
     "topRegion": "West",
-    "topSegment": "Enterprise",
-    "largestStage": "Negotiation"
+    "topSegment": "Strategic",
+    "largestStage": "Closed Won"
   },
   "summaries": {
     "byStage": [
@@ -54,8 +54,8 @@
       {
         "name": "Closed Won",
         "count": 2,
-        "amount": 1750000.0,
-        "weightedAmount": 1750000.0
+        "amount": 4750000.0,
+        "weightedAmount": 4750000.0
       },
       {
         "name": "Closed Lost",
@@ -68,8 +68,8 @@
       {
         "name": "West",
         "count": 6,
-        "amount": 5365000.0,
-        "weightedAmount": 3686450.0
+        "amount": 8365000.0,
+        "weightedAmount": 6686450.0
       },
       {
         "name": "Northeast",
@@ -94,8 +94,8 @@
       {
         "name": "Jordan Miles",
         "count": 6,
-        "amount": 5365000.0,
-        "weightedAmount": 3686450.0
+        "amount": 8365000.0,
+        "weightedAmount": 6686450.0
       },
       {
         "name": "Avery Chen",
@@ -118,16 +118,16 @@
     ],
     "bySegment": [
       {
+        "name": "Strategic",
+        "count": 5,
+        "amount": 7435000.0,
+        "weightedAmount": 5923250.0
+      },
+      {
         "name": "Enterprise",
         "count": 7,
         "amount": 5755000.0,
         "weightedAmount": 3502400.0
-      },
-      {
-        "name": "Strategic",
-        "count": 5,
-        "amount": 4435000.0,
-        "weightedAmount": 2923250.0
       },
       {
         "name": "Public Sector",
@@ -438,9 +438,9 @@
       "owner": "Jordan Miles",
       "stage": "Closed Won",
       "forecastCategory": "Closed",
-      "amount": 1240000.0,
+      "amount": 4240000.0,
       "probability": 1.0,
-      "weightedAmount": 1240000.0,
+      "weightedAmount": 4240000.0,
       "expectedCloseDate": "2026-06-01",
       "lastUpdated": "2026-06-01"
     },

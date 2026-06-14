@@ -1,9 +1,9 @@
 {
   "run": {
-    "generatedAt": "2026-06-14T20:00:04+00:00",
+    "generatedAt": "2026-06-14T20:35:20+00:00",
     "sourceFile": "data/crm-export-june-2026.xlsx",
     "sourceSheet": "CRM_Export",
-    "sourceSha256": "750f6852e098c4f347253a70aaa620ab1f3b8c6c94f8e4c908bd50b19c65eca6"
+    "sourceSha256": "3fc11b52cc3a63c9b5aa0e16db5da8fa6952b0a7f77846d7aae1e925bc8f3650"
   },
   "checks": [
     {

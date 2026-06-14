@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "generatedBy": "local-simulated-ai",
-    "generatedAt": "2026-06-14T20:00:04+00:00",
+    "generatedBy": "github-actions-local-fallback",
+    "generatedAt": "2026-06-14T20:35:20+00:00",
     "sourceFile": "site/data/pipeline.json",
-    "sourceSha256": "750f6852e098c4f347253a70aaa620ab1f3b8c6c94f8e4c908bd50b19c65eca6",
+    "sourceSha256": "3fc11b52cc3a63c9b5aa0e16db5da8fa6952b0a7f77846d7aae1e925bc8f3650",
     "dataAsOf": "2026-06-13",
     "guardrail": "AI copy is generated from validated metrics and does not modify numeric source data."
   },
   "hero": {
-    "headline": "Closed-won revenue is behind goal by $250,000",
-    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against a $2,000,000 goal, leaving the team at 88% of target.",
+    "headline": "Closed-won revenue is ahead of goal by $2,750,000",
+    "body": "The latest CRM refresh shows $4,750,000 in closed-won sales against a $2,000,000 goal, putting the team at 238% of target.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
@@ -20,7 +20,7 @@
   "cards": [
     {
       "title": "Goal status changed",
-      "body": "Closed-won sales missed the $2,000,000 goal by $250,000. The website copy changed because the CRM-derived metric changed.",
+      "body": "Closed-won sales beat the $2,000,000 goal by $2,750,000. The website copy changed because the CRM-derived metric changed.",
       "sources": [
         "metrics.closedWon",
         "metrics.closedWonGoal",
@@ -30,7 +30,7 @@
     },
     {
       "title": "Pipeline context",
-      "body": "The validated export contains 24 opportunities totaling $14,225,000, with $8,502,500 in weighted pipeline.",
+      "body": "The validated export contains 24 opportunities totaling $17,225,000, with $11,502,500 in weighted pipeline.",
       "sources": [
         "metrics.totalRecords",
         "metrics.pipelineValue",
@@ -39,7 +39,7 @@
     },
     {
       "title": "Regional concentration",
-      "body": "West is the largest region in this refresh at $5,365,000 across 6 opportunities.",
+      "body": "West is the largest region in this refresh at $8,365,000 across 6 opportunities.",
       "sources": [
         "summaries.byRegion[0].name",
         "summaries.byRegion[0].amount",
