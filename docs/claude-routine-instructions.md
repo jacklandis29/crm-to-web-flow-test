@@ -70,14 +70,20 @@ Give the routine permission to:
 
 1. Push the repo to GitHub.
 2. Enable GitHub Pages.
-3. Open the live Pages site.
-4. Run:
+3. Reset to the known behind-goal baseline:
 
    ```bash
-   npm run crm:win-routine
+   npm run crm:reset
    ```
 
-5. That command updates `data/mock-crm.json`, pushes it with a `[routine]` marker, and publishes a `crm-refresh-*` GitHub release.
-6. The Claude Routine fires from the release event.
-7. Claude syncs CRM data, rewrites AI copy, validates, and commits generated JSON files to `main`.
-8. GitHub Pages redeploys and the live site changes.
+4. Wait for GitHub Pages to redeploy, then open the live Pages site. It should show closed-won sales behind goal.
+5. Run the actual demo once:
+
+   ```bash
+   npm run crm:win
+   ```
+
+6. That command updates `data/mock-crm.json`, pushes it with a `[routine]` marker, and publishes a `crm-refresh-rev-*` GitHub release.
+7. The Claude Routine fires from the release event.
+8. Claude syncs CRM data, rewrites AI copy, validates, and commits generated JSON files to `main`.
+9. GitHub Pages redeploys and the live site changes.

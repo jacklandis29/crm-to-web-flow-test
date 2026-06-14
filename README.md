@@ -23,6 +23,14 @@ Then open [http://localhost:4173](http://localhost:4173).
 
 ## Professional Mock CRM Demo
 
+To start from a clean behind-goal state:
+
+```bash
+npm run crm:reset
+```
+
+Wait for GitHub Pages to redeploy, then run the actual cloud demo:
+
 Run this to change the mock CRM and trigger the Claude Routine path:
 
 ```bash

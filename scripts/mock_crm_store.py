@@ -32,6 +32,15 @@ CRM_COLUMNS = [
     "lastUpdated",
 ]
 
+FORECAST_BY_STAGE = {
+    "Prospecting": "Pipeline",
+    "Qualification": "Pipeline",
+    "Proposal": "Best Case",
+    "Negotiation": "Commit",
+    "Closed Won": "Closed",
+    "Closed Lost": "Omitted",
+}
+
 DEFAULT_CRM_PATH = Path("data/mock-crm.json")
 DEFAULT_SITE_DATA_DIR = Path("site/data")
 
@@ -156,19 +165,27 @@ def update_opportunity(
         raise ValueError(f"Opportunity not found: {opportunity_id}")
 
     changes: dict[str, Any] = {}
-    if amount is not None:
+    if amount is not None and float(match["amount"]) != float(amount):
         changes["amount"] = {"from": match["amount"], "to": amount}
         match["amount"] = amount
-    if stage is not None:
+    if stage is not None and match["stage"] != stage:
         if stage not in PIPELINE_STAGES:
             raise ValueError(f"Unknown stage: {stage}")
         changes["stage"] = {"from": match["stage"], "to": stage}
         match["stage"] = stage
-    if probability is not None:
+    if stage is not None:
+        forecast_category = FORECAST_BY_STAGE.get(stage, match["forecastCategory"])
+        if match["forecastCategory"] != forecast_category:
+            changes["forecastCategory"] = {"from": match["forecastCategory"], "to": forecast_category}
+            match["forecastCategory"] = forecast_category
+    if probability is not None and float(match["probability"]) != float(probability):
         if probability < 0 or probability > 1:
             raise ValueError("Probability must be between 0 and 1.")
         changes["probability"] = {"from": match["probability"], "to": probability}
         match["probability"] = probability
+
+    if not changes:
+        raise ValueError(f"No CRM changes needed for {opportunity_id}.")
 
     now = utc_now()
     match["lastUpdated"] = now[:10]

@@ -9,7 +9,7 @@ import subprocess
 import sys
 from datetime import datetime
 
-from mock_crm_store import update_opportunity
+from mock_crm_store import DEFAULT_CRM_PATH, load_database, update_opportunity
 
 
 def run(command: list[str], *, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -33,7 +33,18 @@ def pull_latest(remote: str, branch: str) -> None:
     run(["git", "pull", "--rebase", remote, branch])
 
 
+def local_ahead_count(remote: str, branch: str) -> int:
+    result = run(["git", "rev-list", "--count", f"{remote}/{branch}..HEAD"], check=False)
+    if result.returncode != 0:
+        return 1
+    return int(result.stdout.strip() or "0")
+
+
 def push_with_rebase_retry(remote: str, branch: str) -> None:
+    if local_ahead_count(remote, branch) == 0:
+        print(f"No local commits to push to {remote}/{branch}.")
+        return
+
     result = run(["git", "push", remote, branch], check=False)
     if result.returncode == 0:
         return
@@ -59,10 +70,21 @@ def publish_release(branch: str, prefix: str) -> None:
             "Install it with `brew install gh`, then run `gh auth login`, then rerun `npm run crm:release`."
         )
 
-    tag = f"{prefix}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-    title = f"Mock CRM refresh {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-    notes = "Mock CRM revision changed. Claude Routine should query the CRM snapshot and update website copy."
+    database = load_database(DEFAULT_CRM_PATH)
+    revision = database.get("metadata", {}).get("revision")
+    tag = f"{prefix}-rev-{revision}" if revision is not None else f"{prefix}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    title = f"Mock CRM refresh rev {revision}" if revision is not None else f"Mock CRM refresh {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+    notes = (
+        f"Mock CRM revision {revision} changed. "
+        "Claude Routine should query the CRM snapshot and update website copy."
+    )
+    existing = run(["gh", "release", "view", tag], check=False)
+    if existing.returncode == 0:
+        print(f"Release {tag} already exists; not publishing a duplicate Routine trigger.")
+        return
+
     run(["gh", "release", "create", tag, "--target", branch, "--title", title, "--notes", notes])
+    print(f"Published release {tag}.")
 
 
 def main() -> int:
@@ -86,7 +108,8 @@ def main() -> int:
             if args.push:
                 pull_latest(args.remote, args.branch)
                 push_with_rebase_retry(args.remote, args.branch)
-            publish_release(args.branch, args.release_prefix)
+            if args.release:
+                publish_release(args.branch, args.release_prefix)
             return 0
 
         if not args.opportunity:
