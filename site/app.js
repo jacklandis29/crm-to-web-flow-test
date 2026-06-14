@@ -30,13 +30,13 @@ function formatSnapshotTime(metadata) {
   return metadata.dataAsOf;
 }
 
-/* Animate a currency value from 0 → target for the video flip. */
+/* Animate a currency value from 0 → target for the video flip.
+   The final value is set immediately so the number is always correct even if
+   requestAnimationFrame never fires (e.g. a throttled background tab). */
 function countUp(el, target) {
   if (!el) return;
-  if (reducedMotion) {
-    el.textContent = money.format(target);
-    return;
-  }
+  el.textContent = money.format(target);
+  if (reducedMotion) return;
   const duration = 900;
   const start = performance.now();
   const step = (now) => {
@@ -52,7 +52,6 @@ function renderHeader(pipeline) {
   const { metadata } = pipeline;
   const source = metadata.sourceSystem || "CRM";
   const revision = metadata.sourceRevision ? `rev ${metadata.sourceRevision}` : "snapshot";
-  $("#revisionBadge").textContent = `${source} · ${revision}`;
   $("#lastRefresh").textContent = `Data as of ${formatSnapshotTime(metadata)}`;
   $("#crmSource").textContent = `${source} ${revision}`;
 }
@@ -73,11 +72,9 @@ function renderGoal(pipeline) {
   const fill = $("#goalProgress");
   fill.classList.toggle("ahead", ahead);
   const width = Math.min(100, Math.round(m.closedWonAttainment * 100));
-  if (reducedMotion) {
-    fill.style.width = `${width}%`;
-  } else {
-    requestAnimationFrame(() => (fill.style.width = `${width}%`));
-  }
+  // The 0% start is painted from the inline style on load, so setting the target
+  // here transitions via CSS — no requestAnimationFrame needed.
+  fill.style.width = `${width}%`;
 }
 
 function renderKpis(pipeline) {
@@ -106,7 +103,6 @@ function renderChange(summary) {
 }
 
 function renderAI(summary) {
-  $("#aiStatus").textContent = `AI: ${summary.metadata.generatedBy}`;
   $("#copyHeadline").textContent = summary.hero.headline;
   $("#copyBody").textContent = summary.hero.body;
   $("#copySources").innerHTML = sourceChips(summary.hero.sources);
@@ -148,12 +144,12 @@ function renderStageBars(pipeline) {
     })
     .join("");
 
-  const grow = () =>
-    document.querySelectorAll("#stageBars [data-w]").forEach((el) => {
-      el.style.width = `${el.dataset.w}%`;
-    });
-  if (reducedMotion) grow();
-  else requestAnimationFrame(grow);
+  // Flush layout so the freshly-inserted 0%-width bars paint before we set the
+  // target width — that makes the CSS transition animate, without needing rAF.
+  void $("#stageBars").offsetHeight;
+  document.querySelectorAll("#stageBars [data-w]").forEach((el) => {
+    el.style.width = `${el.dataset.w}%`;
+  });
 }
 
 function renderOppTable(pipeline) {
@@ -189,10 +185,14 @@ function showError(error) {
 
 async function init() {
   try {
+    // Cache-bust so a refresh always shows the latest CRM data, even though
+    // GitHub Pages caches static assets for ~10 minutes.
+    const bust = `?t=${Date.now()}`;
+    const noStore = { cache: "no-store" };
     const responses = await Promise.all([
-      fetch("./data/pipeline.json"),
-      fetch("./data/audit-log.json"),
-      fetch("./data/ai-summary.json"),
+      fetch(`./data/pipeline.json${bust}`, noStore),
+      fetch(`./data/audit-log.json${bust}`, noStore),
+      fetch(`./data/ai-summary.json${bust}`, noStore),
     ]);
     if (responses.some((r) => !r.ok)) {
       throw new Error("Run npm run generate, then refresh the page.");
@@ -207,8 +207,6 @@ async function init() {
     renderStageBars(pipeline);
     renderOppTable(pipeline);
     renderLineage(audit, pipeline);
-
-    requestAnimationFrame(() => document.body.classList.add("ready"));
   } catch (error) {
     showError(error);
   }
