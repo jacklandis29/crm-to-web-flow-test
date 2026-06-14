@@ -1,27 +1,35 @@
 # Demo Script
 
-1. Show `data/mock-crm.json` and explain that it is a sanitized CRM source.
-2. Show `.mcp.json` and `scripts/mock_crm_mcp_server.py` to explain that Claude/tools can query the CRM through MCP.
-3. Open the website and point out the current closed-won goal status.
-4. Run one of these:
+1. Open the website. It should show one obvious state:
+   - closed-won sales are behind the goal
+   - Claude copy says they are behind the goal
+
+2. Show the CRM source briefly:
+   - `data/mock-crm.json`
+   - `.mcp.json`
+   - `scripts/mock_crm_mcp_server.py`
+
+3. Run:
 
    ```bash
-   npm run crm:win-actions
+   npm run crm:win
    ```
 
-   or:
+4. Explain what just happened:
+   - a mock CRM opportunity changed to `Closed Won`
+   - the command pushed the CRM change
+   - the command published a `crm-refresh-*` release
+   - that release wakes the Claude Routine
 
-   ```bash
-   npm run crm:win-routine
-   ```
+5. Show the Claude Routine run.
 
-5. Explain that this simulates a CRM user changing an opportunity to `Closed Won`.
-6. For the Actions path, open GitHub Actions and show `.github/workflows/mock-crm-to-main.yml` running.
-7. For the Routine path, show the `crm-refresh-*` release and the Claude Routine run.
-8. When it completes, refresh GitHub Pages.
-9. Open `site/data/pipeline.json` and show that the numbers are a validated CRM snapshot.
-10. Open `site/data/ai-summary.json` and show that the AI copy references source keys from the snapshot.
+6. Refresh GitHub Pages.
+
+7. The website should now show:
+   - the closed-won number changed
+   - the Claude copy changed
+   - the source hash/revision changed
 
 Close with this framing:
 
-> The CRM owns the numbers. The MCP server exposes the CRM. The deterministic sync freezes validated facts. The AI only writes language from those facts.
+> The CRM owns the numbers. The MCP server exposes the CRM. Claude writes the words. The website shows both changes clearly.

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sanitized CRM to Web Flow</title>
+    <title>CRM to Claude Website Demo</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -11,103 +11,78 @@
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Sanitized demo workflow</p>
-          <h1>CRM source to live website</h1>
+          <p class="eyebrow">Mock CRM MCP demo</p>
+          <h1>CRM facts in. Claude copy out.</h1>
         </div>
-        <div class="refresh-pill">
+        <div class="status-pill">
           <span class="status-dot"></span>
-          <span id="refreshStatus">Loading refresh status</span>
+          <span id="refreshStatus">Loading CRM revision</span>
         </div>
       </header>
 
       <main>
-        <section class="summary-grid" aria-label="Pipeline summary">
-          <article class="metric metric-primary">
-            <span class="metric-label">Pipeline value</span>
-            <strong id="pipelineValue">$0</strong>
-            <small id="pipelineMeta">0 records</small>
+        <section class="proof-grid" aria-label="CRM and Claude proof">
+          <article class="fact-panel">
+            <div class="panel-label">
+              <span>Validated CRM number</span>
+              <strong id="crmSource">MockCRM</strong>
+            </div>
+            <p class="metric-label">Closed-won sales</p>
+            <strong id="closedWonValue" class="hero-number">$0</strong>
+            <div id="goalDelta" class="delta-pill">Loading goal status</div>
+            <div class="fact-row">
+              <span>Goal</span>
+              <strong id="goalValue">$0</strong>
+            </div>
+            <div class="fact-row">
+              <span>Pipeline</span>
+              <strong id="pipelineValue">$0</strong>
+            </div>
+            <div class="fact-row">
+              <span>Attainment</span>
+              <strong id="attainmentValue">0%</strong>
+            </div>
           </article>
-          <article class="metric">
-            <span class="metric-label">Weighted pipeline</span>
-            <strong id="weightedPipeline">$0</strong>
-            <small>Validated from export probabilities</small>
-          </article>
-          <article class="metric">
-            <span class="metric-label">Closed won</span>
-            <strong id="closedWon">$0</strong>
-            <small>Included for embedded BI parity</small>
-          </article>
-          <article class="metric warning">
-            <span class="metric-label">Needs follow-up</span>
-            <strong id="staleOpenCount">0</strong>
-            <small>Open items stale by threshold</small>
+
+          <article class="copy-panel">
+            <div class="panel-label">
+              <span>Claude-authored copy</span>
+              <strong id="aiStatus">AI pending</strong>
+            </div>
+            <h2 id="copyHeadline">Loading latest summary</h2>
+            <p id="copyBody" class="copy-body"></p>
+            <div class="source-strip" id="copySources"></div>
           </article>
         </section>
 
-        <section class="workbench" aria-label="Dashboard">
-          <div class="analytics-panel">
-            <div class="panel-heading">
-              <div>
-                <p class="eyebrow">Embedded analytics layer</p>
-                <h2>Validated CRM snapshot</h2>
-              </div>
-              <span class="source-badge">CRM locked</span>
-            </div>
-            <div class="bi-frame">
-              <div class="bi-chart" id="stageChart" aria-label="Pipeline by stage"></div>
-              <div class="bi-side">
-                <h3>Region mix</h3>
-                <div id="regionChart" class="region-chart"></div>
-              </div>
-            </div>
+        <section class="evidence-band" aria-label="Source evidence">
+          <div>
+            <span class="evidence-label">CRM revision</span>
+            <strong id="crmRevision">-</strong>
           </div>
-
-          <aside class="narrative-panel" aria-label="Generated narrative">
-            <div class="panel-heading compact">
-              <div>
-                <p class="eyebrow">Source-bound AI update</p>
-                <h2>AI-authored website copy</h2>
-              </div>
-              <span id="aiStatus" class="source-badge">AI pending</span>
-            </div>
-            <div id="narrativeCards" class="narrative-list"></div>
-          </aside>
-        </section>
-
-        <section class="data-section" aria-label="Opportunity detail">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">Mock CRM API</p>
-              <h2>Opportunity rows used by the site</h2>
-            </div>
-            <span id="sourceHash" class="hash-badge"></span>
+          <div>
+            <span class="evidence-label">Source hash</span>
+            <strong id="sourceHash">-</strong>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Account</th>
-                  <th>Region</th>
-                  <th>Stage</th>
-                  <th>Owner</th>
-                  <th>Amount</th>
-                  <th>Probability</th>
-                  <th>Updated</th>
-                </tr>
-              </thead>
-              <tbody id="opportunityRows"></tbody>
-            </table>
+          <div>
+            <span class="evidence-label">Validation</span>
+            <strong id="auditStatus">-</strong>
           </div>
         </section>
 
-        <section class="audit-section" aria-label="Automation audit">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">Automation audit</p>
-              <h2>Guardrails before the PR opens</h2>
-            </div>
+        <section class="flow-band" aria-label="Flow">
+          <div>
+            <span class="flow-index">1</span>
+            <strong>Mock CRM changes</strong>
           </div>
-          <div id="auditSteps" class="audit-grid"></div>
+          <div>
+            <span class="flow-index">2</span>
+            <strong>Facts are frozen</strong>
+          </div>
+          <div>
+            <span class="flow-index">3</span>
+            <strong>Claude rewrites copy</strong>
+          </div>
         </section>
       </main>
     </div>

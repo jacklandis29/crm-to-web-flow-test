@@ -3,24 +3,24 @@
     "demoName": "Sanitized CRM to Web Flow",
     "sourceFile": "data/mock-crm.json",
     "sourceSheet": "mock_crm.opportunities",
-    "sourceSha256": "178cbc2f42bd41c8d9fd77b4f228e88f94dae09822e5a0c92e82cbcde21e65d6",
-    "generatedAt": "2026-06-14T21:05:40+00:00",
-    "dataAsOf": "2026-06-14",
+    "sourceSha256": "044d1d411f237ca15f3ee1b39b6bf30641d5e2dafdbc1453e3e256da294b45c6",
+    "generatedAt": "2026-06-14T21:21:37+00:00",
+    "dataAsOf": "2026-06-13",
     "staleThresholdDays": 21,
     "guardrail": "This file is a validated public snapshot of mock CRM data; AI-authored text lives in ai-summary.json.",
     "sourceSystem": "MockCRM",
-    "sourceRevision": 7,
-    "sourceUpdatedAt": "2026-06-14T20:45:00Z"
+    "sourceRevision": 8,
+    "sourceUpdatedAt": "2026-06-14T21:16:00Z"
   },
   "metrics": {
     "totalRecords": 12,
-    "pipelineValue": 8500000.0,
-    "weightedPipeline": 5541300.0,
+    "pipelineValue": 8200000.0,
+    "weightedPipeline": 5241300.0,
     "openPipeline": 5760000.0,
-    "closedWon": 2050000.0,
+    "closedWon": 1750000.0,
     "closedWonGoal": 2000000,
-    "closedWonDelta": 50000.0,
-    "closedWonAttainment": 1.025,
+    "closedWonDelta": -250000.0,
+    "closedWonAttainment": 0.875,
     "closedLost": 690000.0,
     "averageProbability": 0.5883,
     "staleOpenCount": 2,
@@ -57,8 +57,8 @@
       {
         "name": "Closed Won",
         "count": 2,
-        "amount": 2050000.0,
-        "weightedAmount": 2050000.0
+        "amount": 1750000.0,
+        "weightedAmount": 1750000.0
       },
       {
         "name": "Closed Lost",
@@ -83,8 +83,8 @@
       {
         "name": "Southeast",
         "count": 2,
-        "amount": 1450000.0,
-        "weightedAmount": 1078800.0
+        "amount": 1150000.0,
+        "weightedAmount": 778800.0
       },
       {
         "name": "Midwest",
@@ -109,8 +109,8 @@
       {
         "name": "Mina Patel",
         "count": 2,
-        "amount": 1450000.0,
-        "weightedAmount": 1078800.0
+        "amount": 1150000.0,
+        "weightedAmount": 778800.0
       },
       {
         "name": "Theo Brooks",
@@ -133,16 +133,16 @@
         "weightedAmount": 2167000.0
       },
       {
-        "name": "Public Sector",
-        "count": 2,
-        "amount": 1175000.0,
-        "weightedAmount": 1010750.0
-      },
-      {
         "name": "Mid-Market",
         "count": 3,
         "amount": 980000.0,
         "weightedAmount": 530250.0
+      },
+      {
+        "name": "Public Sector",
+        "count": 2,
+        "amount": 875000.0,
+        "weightedAmount": 710750.0
       }
     ]
   },
@@ -295,11 +295,11 @@
       "owner": "Mina Patel",
       "stage": "Closed Won",
       "forecastCategory": "Closed",
-      "amount": 810000.0,
+      "amount": 510000.0,
       "probability": 1.0,
-      "weightedAmount": 810000.0,
+      "weightedAmount": 510000.0,
       "expectedCloseDate": "2026-06-07",
-      "lastUpdated": "2026-06-14"
+      "lastUpdated": "2026-06-07"
     },
     {
       "opportunityId": "OPP-2026-009",

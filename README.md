@@ -5,8 +5,8 @@ This repo is a safe, professional demo of the workflow you described:
 1. A mock Salesforce-style CRM changes.
 2. Claude/tools can query that CRM through a local MCP server.
 3. Deterministic code validates the CRM data and writes website-safe JSON.
-4. An AI/code-agent step reads the validated metrics and writes website copy.
-5. GitHub Actions or a Claude Routine commits generated files to `main`.
+4. Claude Code reads the validated metrics and writes website copy.
+5. The Claude Routine commits generated files to `main`.
 6. GitHub Pages deploys the live static website.
 
 All data is synthetic.
@@ -23,19 +23,21 @@ Then open [http://localhost:4173](http://localhost:4173).
 
 ## Professional Mock CRM Demo
 
-Run this to change the mock CRM and trigger the GitHub Actions path:
+Run this to change the mock CRM and trigger the Claude Routine path:
 
 ```bash
-npm run crm:win-actions
+npm run crm:win
 ```
 
-Run this instead to publish a release that wakes the Claude Routine:
+This updates `OPP-2026-002` to `Closed Won`, publishes a `crm-refresh-*` release, and wakes the Claude Routine.
+
+The local-only version is:
 
 ```bash
-npm run crm:win-routine
+npm run crm:win-local
 ```
 
-Both commands update `OPP-2026-002` to `Closed Won`, pushing closed-won sales further ahead of the goal. The AI copy changes only after the validated CRM snapshot changes.
+The AI copy changes only after the validated CRM snapshot changes.
 
 ## What To Point Out
 
@@ -45,9 +47,8 @@ Both commands update `OPP-2026-002` to `Closed Won`, pushing closed-won sales fu
 - `site/data/pipeline.json` is the CRM-derived source for dashboard numbers.
 - `site/data/ai-summary.json` is the AI-authored website copy derived from the pipeline JSON.
 - `site/data/audit-log.json` shows the guardrails that passed before publishing.
-- `.github/workflows/mock-crm-to-main.yml` is the primary mock CRM cloud refresh.
-- `.github/workflows/crm-export-to-main.yml` is the legacy Excel refresh fallback.
 - `docs/mock-crm-mcp.md` explains the MCP architecture.
+- `docs/claude-routine-instructions.md` contains the Claude Routine prompt.
 
 ## How It Maps To The Real Flow
 
@@ -55,7 +56,7 @@ Both commands update `OPP-2026-002` to `Closed Won`, pushing closed-won sales fu
 | --- | --- |
 | Internal Salesforce-powered CRM | Mock CRM store plus MCP server |
 | Power BI dataset refresh | Generated JSON summaries and the embedded analytics panel |
-| AI/code agent updates website | Claude Code Action or Claude Routine updates `ai-summary.json` |
+| AI/code agent updates website | Claude Routine updates `ai-summary.json` |
 | Anti-hallucination guardrail | AI reads only validated `pipeline.json` source keys |
 | Live website | GitHub Pages deploys the static `site/` folder |
 

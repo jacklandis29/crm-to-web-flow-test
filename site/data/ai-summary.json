@@ -1,15 +1,15 @@
 {
   "metadata": {
     "generatedBy": "local-simulated-ai",
-    "generatedAt": "2026-06-14T21:05:40+00:00",
+    "generatedAt": "2026-06-14T21:21:37+00:00",
     "sourceFile": "site/data/pipeline.json",
-    "sourceSha256": "178cbc2f42bd41c8d9fd77b4f228e88f94dae09822e5a0c92e82cbcde21e65d6",
-    "dataAsOf": "2026-06-14",
+    "sourceSha256": "044d1d411f237ca15f3ee1b39b6bf30641d5e2dafdbc1453e3e256da294b45c6",
+    "dataAsOf": "2026-06-13",
     "guardrail": "AI copy is generated from validated metrics and does not modify numeric source data."
   },
   "hero": {
-    "headline": "Closed-won revenue is ahead of goal by $50,000",
-    "body": "The latest CRM refresh shows $2,050,000 in closed-won sales against a $2,000,000 goal, putting the team at 102% of target.",
+    "headline": "Closed-won revenue is behind goal by $250,000",
+    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against a $2,000,000 goal, leaving the team at 88% of target.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
@@ -20,7 +20,7 @@
   "cards": [
     {
       "title": "Goal status changed",
-      "body": "Closed-won sales beat the $2,000,000 goal by $50,000. The website copy changed because the CRM-derived metric changed.",
+      "body": "Closed-won sales missed the $2,000,000 goal by $250,000. The website copy changed because the CRM-derived metric changed.",
       "sources": [
         "metrics.closedWon",
         "metrics.closedWonGoal",
@@ -30,7 +30,7 @@
     },
     {
       "title": "Pipeline context",
-      "body": "The validated export contains 12 opportunities totaling $8,500,000, with $5,541,300 in weighted pipeline.",
+      "body": "The validated export contains 12 opportunities totaling $8,200,000, with $5,241,300 in weighted pipeline.",
       "sources": [
         "metrics.totalRecords",
         "metrics.pipelineValue",

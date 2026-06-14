@@ -10,6 +10,8 @@
     "crm:win-local": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1500000 && npm run generate",
     "crm:win-actions": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1500000 --commit --push",
     "crm:win-routine": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1500000 --commit --push --release",
+    "crm:win": "npm run crm:win-routine",
+    "demo:change": "npm run crm:win-routine",
     "excel:refresh": "python3 scripts/ingest_crm_export.py data/crm-export-june-2026.xlsx",
     "excel:generate": "npm run excel:refresh && npm run ai:local",
     "excel:validate": "python3 scripts/ingest_crm_export.py data/crm-export-june-2026.xlsx --check && python3 scripts/validate_ai_summary.py",
