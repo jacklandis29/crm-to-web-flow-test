@@ -34,6 +34,7 @@ Steps:
 3. Treat data/mock-crm.json as the CRM source of truth. If a mock-crm MCP connector is available, use it to inspect the current CRM revision and pipeline snapshot.
 4. Run:
    npm run crm:sync
+   (If npm is unavailable in this environment, run: python3 scripts/sync_from_mock_crm.py)
 5. Read site/data/pipeline.json. This is the validated source of truth for all published numbers.
    - It includes a `changeReport` block describing what moved since the last published
      snapshot (which opportunities changed, from/to values, and metric deltas).
