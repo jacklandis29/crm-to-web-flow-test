@@ -2,21 +2,23 @@
 
 ```mermaid
 flowchart LR
-  CRM["CRM export\n.xlsx"] --> Action["GitHub Actions\nrefresh job"]
+  CRM["Save CRM export\n.xlsx"] --> Watcher["Local watcher\ncommit + push workbook"]
+  Watcher --> Action["GitHub Actions\nrefresh job"]
   Action --> Validate["Validate schema\nand parse rows"]
   Validate --> JSON["Generated JSON\npipeline + audit"]
-  JSON --> AI["Claude Routine,\nClaude Code Action,\nor local AI simulation"]
+  JSON --> AI["Claude Code Action\nor fallback simulation"]
   AI --> Copy["AI summary JSON\ncopy only"]
   JSON --> BI["Embedded analytics\nPower BI-style layer"]
   BI --> Site["Website"]
   Copy --> Site
   Action --> Main["Commit generated files\nto main"]
-  Main --> Pages["GitHub Pages deploy"]
+  Action --> Pages["GitHub Pages deploy"]
   Pages --> Site
 ```
 
 ## Guardrails
 
+- The local watcher commits only the workbook.
 - Raw export data remains separate from generated website outputs.
 - Required columns are checked before any website data is written.
 - Numeric fields, probabilities, stages, and ISO dates are validated.
@@ -27,4 +29,4 @@ flowchart LR
 
 ## Where An LLM Fits
 
-In GitHub, Claude Routine or Claude Code Action can replace the local simulated AI step. The contract stays the same: the agent receives validated JSON, writes bounded website copy, and includes evidence keys for every published claim.
+In GitHub, Claude Code Action can replace the local simulated AI step. The contract stays the same: the agent receives validated JSON, writes bounded website copy, and includes evidence keys for every published claim.

@@ -7,10 +7,18 @@ on:
         description: "Path to the CRM export workbook"
         default: "data/crm-export-june-2026.xlsx"
         required: true
+  push:
+    branches:
+      - main
+    paths:
+      - "data/**/*.xlsx"
 
 permissions:
   contents: write
   actions: read
+  pull-requests: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: crm-export-refresh-main
@@ -19,6 +27,9 @@ concurrency:
 jobs:
   refresh-website-data:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       HAS_ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
     steps:
@@ -105,3 +116,15 @@ jobs:
           commit_user_name: github-actions[bot]
           commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

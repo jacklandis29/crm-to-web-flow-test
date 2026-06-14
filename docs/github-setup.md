@@ -12,15 +12,20 @@ Use this when you want the full cloud demo with direct-to-main updates and GitHu
 
 ## Full Demo Flow
 
-1. Edit `data/crm-export-june-2026.xlsx`.
-2. Save the workbook.
-3. Commit and push the workbook change.
-4. Publish a GitHub release.
-5. The Claude Routine runs from the release event.
-6. Claude regenerates `site/data/pipeline.json` from the workbook.
-7. Claude writes `site/data/ai-summary.json` from the validated metrics.
-8. Claude commits generated data and AI copy directly to `main`.
-9. `.github/workflows/deploy-site.yml` deploys the updated static site to GitHub Pages.
+1. Start the local watcher:
+
+   ```bash
+   npm run watch:excel
+   ```
+
+2. Edit `data/crm-export-june-2026.xlsx`.
+3. Save the workbook.
+4. The watcher commits and pushes the workbook to `main`.
+5. GitHub Actions runs `.github/workflows/crm-export-to-main.yml`.
+6. The workflow regenerates `site/data/pipeline.json` from the workbook.
+7. Claude Code Action reads `pipeline.json` and writes `site/data/ai-summary.json`.
+8. The workflow commits generated data and AI copy directly to `main`.
+9. The same workflow deploys the updated static site to GitHub Pages.
 
 ## Claude Routine Option
 
@@ -33,6 +38,10 @@ Recommended event: **Release published**. Push a workbook change, publish a rele
 ## Manual Workflow Fallback
 
 `.github/workflows/crm-export-to-main.yml` can be run manually from the Actions tab. It performs the same refresh directly on `main`. Use it if you want to test the automation without the Claude Routine.
+
+## Why The Refresh Workflow Also Deploys Pages
+
+GitHub does not start new push workflows or Pages builds from commits made with the default `GITHUB_TOKEN`, so the CRM refresh workflow deploys Pages itself after committing generated files.
 
 ## Local Demo Flow
 

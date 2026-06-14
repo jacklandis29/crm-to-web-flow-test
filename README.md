@@ -21,6 +21,24 @@ npm run serve
 
 Then open [http://localhost:4173](http://localhost:4173).
 
+## Fully Automated Demo
+
+Leave this running while you edit the workbook:
+
+```bash
+npm run watch:excel
+```
+
+Then save `data/crm-export-june-2026.xlsx`.
+
+The watcher commits and pushes only the workbook. GitHub Actions then:
+
+1. Regenerates CRM-derived JSON.
+2. Runs Claude Code Action if `ANTHROPIC_API_KEY` is configured, or the local fallback if not.
+3. Validates the AI summary.
+4. Commits generated site data to `main`.
+5. Deploys GitHub Pages from the same workflow.
+
 ## What To Point Out
 
 - `data/crm-export-june-2026.xlsx` is the sanitized CRM export.
@@ -31,6 +49,7 @@ Then open [http://localhost:4173](http://localhost:4173).
 - `.github/workflows/crm-export-to-main.yml` demonstrates the automated direct-to-main refresh.
 - `.github/workflows/deploy-site.yml` deploys the static site after generated files hit `main`.
 - `docs/claude-routine-instructions.md` contains the exact Claude Routine prompt.
+- `scripts/watch_excel_and_push.py` turns a local Excel save into the GitHub push event.
 
 ## How It Maps To The Real Flow
 
@@ -69,6 +88,6 @@ For the full cloud demo:
 2. Enable GitHub Actions.
 3. In repo settings, enable GitHub Pages with source set to GitHub Actions.
 4. Add an `ANTHROPIC_API_KEY` repository secret if you want the workflow to run Claude Code Action.
-5. Publish a release to trigger the Claude Routine, or manually run `.github/workflows/crm-export-to-main.yml` as a fallback.
+5. Run `npm run watch:excel` locally and save the workbook, or manually run `.github/workflows/crm-export-to-main.yml` as a fallback.
 
 Without `ANTHROPIC_API_KEY`, the workflow falls back to `scripts/simulate_ai_summary.py` so the demo still updates `main`.
