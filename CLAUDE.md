@@ -1,14 +1,15 @@
 # Claude Instructions
 
-This repo is a sanitized CRM export to website demo.
+This repo is a sanitized CRM-to-website demo with a mock CRM MCP server.
 
 ## Core Contract
 
-- The Excel workbook in `data/` is the source of truth.
-- `site/data/pipeline.json` and `site/data/audit-log.json` are generated from the workbook.
+- `data/mock-crm.json` is the primary mock CRM source of truth.
+- The mock CRM can be queried through `scripts/mock_crm_mcp_server.py`.
+- `site/data/pipeline.json` and `site/data/audit-log.json` are generated from the CRM snapshot.
 - `site/data/ai-summary.json` is AI-authored copy generated from `site/data/pipeline.json`.
 - Do not manually invent or alter numeric facts.
-- Do not edit the Excel workbook unless the user explicitly asks.
+- Do not edit CRM source data unless the user explicitly asks.
 - Do not edit `site/data/pipeline.json` or `site/data/audit-log.json` by hand.
 - If writing website copy, update `site/data/ai-summary.json` only.
 
@@ -17,7 +18,7 @@ This repo is a sanitized CRM export to website demo.
 Run:
 
 ```bash
-npm run refresh:data
+npm run crm:sync
 npm run ai:local
 npm run validate
 ```
@@ -58,5 +59,5 @@ For an automated refresh commit, include only:
 Use a commit message like:
 
 ```text
-Refresh website data and AI copy from CRM export
+Refresh website data and AI copy from mock CRM
 ```

@@ -33,13 +33,14 @@ function stageClass(stage) {
 }
 
 function renderMetrics(data) {
-  $("#refreshStatus").textContent = `Data as of ${data.metadata.dataAsOf}`;
+  const revision = data.metadata.sourceRevision ? ` · CRM rev ${data.metadata.sourceRevision}` : "";
+  $("#refreshStatus").textContent = `Data as of ${data.metadata.dataAsOf}${revision}`;
   $("#pipelineValue").textContent = money.format(data.metrics.pipelineValue);
   $("#pipelineMeta").textContent = `${data.metrics.totalRecords} validated records`;
   $("#weightedPipeline").textContent = money.format(data.metrics.weightedPipeline);
   $("#closedWon").textContent = money.format(data.metrics.closedWon);
   $("#staleOpenCount").textContent = data.metrics.staleOpenCount.toString();
-  $("#sourceHash").textContent = `sha256 ${data.metadata.sourceSha256.slice(0, 12)}`;
+  $("#sourceHash").textContent = `${data.metadata.sourceSystem || "CRM"} sha256 ${data.metadata.sourceSha256.slice(0, 12)}`;
 }
 
 function renderStageChart(data) {

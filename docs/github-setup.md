@@ -4,62 +4,65 @@ Use this when you want the full cloud demo with direct-to-main updates and GitHu
 
 ## One-Time Setup
 
-1. Create a GitHub repo and push this project.
+1. Push this project to `jacklandis29/crm-to-web-flow-test`.
 2. Go to **Settings -> Actions -> General** and allow GitHub Actions.
-3. Go to **Settings -> Pages** and set the source to **GitHub Actions**.
-4. Go to **Settings -> Secrets and variables -> Actions** and add `ANTHROPIC_API_KEY` if you want the GitHub Action to run Claude Code Action.
-5. Confirm the default branch is `main`, or update the workflows if your repo uses another branch.
+3. Set workflow permissions to **Read and write permissions**.
+4. Go to **Settings -> Pages** and set the source to **GitHub Actions**.
+5. Add `ANTHROPIC_API_KEY` in **Settings -> Secrets and variables -> Actions** if you want GitHub Actions to use Claude Code Action.
 
-## Full Demo Flow
+Without `ANTHROPIC_API_KEY`, the workflow uses the deterministic fallback summary generator so the automation still runs.
 
-1. Start the local watcher:
-
-   ```bash
-   npm run watch:excel
-   ```
-
-2. Edit `data/crm-export-june-2026.xlsx`.
-3. Save the workbook.
-4. The watcher commits and pushes the workbook to `main`.
-5. GitHub Actions runs `.github/workflows/crm-export-to-main.yml`.
-6. The workflow regenerates `site/data/pipeline.json` from the workbook.
-7. Claude Code Action reads `pipeline.json` and writes `site/data/ai-summary.json`.
-8. The workflow commits generated data and AI copy directly to `main`.
-9. The same workflow deploys the updated static site to GitHub Pages.
-
-## Claude Routine Option
-
-Use this for the primary Claude Routine path:
-
-[claude-routine-instructions.md](/Users/jack/Documents/crm-to-web-flow/docs/claude-routine-instructions.md)
-
-Recommended event: **Release published**.
+## Primary Mock CRM Flow
 
 Run:
 
 ```bash
-npm run watch:routine
+npm run crm:win-actions
 ```
 
-Then save the workbook. The watcher pushes the workbook with a `[routine]` commit marker and publishes a `crm-refresh-*` release. The Actions workflow skips `[routine]` commits, so the Claude Routine owns that refresh path.
+This updates `data/mock-crm.json`, commits it, pushes to `main`, and triggers `.github/workflows/mock-crm-to-main.yml`.
 
-## Manual Workflow Fallback
+The workflow:
 
-`.github/workflows/crm-export-to-main.yml` can be run manually from the Actions tab. It performs the same refresh directly on `main`. Use it if you want to test the automation without the Claude Routine.
+1. Syncs mock CRM data into `site/data/pipeline.json`.
+2. Writes `site/data/audit-log.json`.
+3. Uses Claude Code Action, or fallback copy generation, to write `site/data/ai-summary.json`.
+4. Validates source keys.
+5. Commits generated site data to `main`.
+6. Deploys GitHub Pages.
 
-## Why The Refresh Workflow Also Deploys Pages
+## Claude Routine Flow
 
-GitHub does not start new push workflows or Pages builds from commits made with the default `GITHUB_TOKEN`, so the CRM refresh workflow deploys Pages itself after committing generated files.
-
-## Local Demo Flow
-
-Run this when you want the same story without relying on cloud credentials:
+Use this when you want the Claude Routine UI to be the visible AI automation:
 
 ```bash
-npm run refresh:data
-npm run ai:local
-npm run validate
-npm run serve
+npm run crm:win-routine
 ```
 
-Then refresh [http://localhost:4173](http://localhost:4173).
+This updates `data/mock-crm.json`, commits it with `[routine]`, pushes it, and publishes a `crm-refresh-*` GitHub release. The mock CRM workflow skips `[routine]` commits, so the Routine owns that run.
+
+Routine instructions live here:
+
+[claude-routine-instructions.md](/Users/jack/Documents/crm-to-web-flow/docs/claude-routine-instructions.md)
+
+Recommended Routine trigger: **Release published**.
+
+## MCP Setup
+
+The mock CRM MCP server is local and dependency-free:
+
+```bash
+npm run crm:mcp
+```
+
+The repo includes `.mcp.json` for MCP-aware local clients. For a cloud-hosted Claude connector, the same server would need to run in an environment Claude can access or be adapted to the connector hosting model.
+
+## Legacy Excel Flow
+
+The older Excel route still exists for comparison:
+
+```bash
+npm run watch:excel
+```
+
+It triggers `.github/workflows/crm-export-to-main.yml`.

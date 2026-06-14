@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "system": "MockCRM",
+    "environment": "sanitized-demo",
+    "revision": 7,
+    "updatedAt": "2026-06-14T20:45:00Z",
+    "changedBy": "demo.user",
+    "description": "Synthetic CRM data used to demonstrate a CRM-to-website automation flow."
+  },
+  "opportunities": [
+    {
+      "opportunityId": "OPP-2026-001",
+      "account": "Northstar Logistics",
+      "segment": "Enterprise",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 1185000,
+      "probability": 0.82,
+      "expectedCloseDate": "2026-07-19",
+      "lastUpdated": "2026-06-12"
+    },
+    {
+      "opportunityId": "OPP-2026-002",
+      "account": "CivicGrid Energy",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 920000,
+      "probability": 0.64,
+      "expectedCloseDate": "2026-08-03",
+      "lastUpdated": "2026-06-10"
+    },
+    {
+      "opportunityId": "OPP-2026-003",
+      "account": "Harborview Health",
+      "segment": "Enterprise",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Qualification",
+      "forecastCategory": "Pipeline",
+      "amount": 640000,
+      "probability": 0.42,
+      "expectedCloseDate": "2026-09-14",
+      "lastUpdated": "2026-05-16"
+    },
+    {
+      "opportunityId": "OPP-2026-004",
+      "account": "Apex Mobility",
+      "segment": "Mid-Market",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 430000,
+      "probability": 0.58,
+      "expectedCloseDate": "2026-07-28",
+      "lastUpdated": "2026-06-05"
+    },
+    {
+      "opportunityId": "OPP-2026-005",
+      "account": "Blue Ridge County",
+      "segment": "Public Sector",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Closed Won",
+      "forecastCategory": "Closed",
+      "amount": 810000,
+      "probability": 1,
+      "expectedCloseDate": "2026-06-07",
+      "lastUpdated": "2026-06-14"
+    },
+    {
+      "opportunityId": "OPP-2026-006",
+      "account": "Prairie DataWorks",
+      "segment": "Mid-Market",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Prospecting",
+      "forecastCategory": "Pipeline",
+      "amount": 215000,
+      "probability": 0.2,
+      "expectedCloseDate": "2026-10-02",
+      "lastUpdated": "2026-06-01"
+    },
+    {
+      "opportunityId": "OPP-2026-007",
+      "account": "SummitWorks Manufacturing",
+      "segment": "Enterprise",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 780000,
+      "probability": 0.76,
+      "expectedCloseDate": "2026-07-11",
+      "lastUpdated": "2026-06-11"
+    },
+    {
+      "opportunityId": "OPP-2026-008",
+      "account": "Lakefront Schools",
+      "segment": "Public Sector",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 365000,
+      "probability": 0.55,
+      "expectedCloseDate": "2026-08-20",
+      "lastUpdated": "2026-05-19"
+    },
+    {
+      "opportunityId": "OPP-2026-009",
+      "account": "Orchard Financial",
+      "segment": "Enterprise",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Closed Lost",
+      "forecastCategory": "Omitted",
+      "amount": 690000,
+      "probability": 0,
+      "expectedCloseDate": "2026-06-02",
+      "lastUpdated": "2026-06-02"
+    },
+    {
+      "opportunityId": "OPP-2026-010",
+      "account": "Redwood Transit",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Qualification",
+      "forecastCategory": "Pipeline",
+      "amount": 890000,
+      "probability": 0.38,
+      "expectedCloseDate": "2026-09-29",
+      "lastUpdated": "2026-06-06"
+    },
+    {
+      "opportunityId": "OPP-2026-011",
+      "account": "Keystone Robotics",
+      "segment": "Mid-Market",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 335000,
+      "probability": 0.71,
+      "expectedCloseDate": "2026-07-09",
+      "lastUpdated": "2026-06-13"
+    },
+    {
+      "opportunityId": "OPP-2026-012",
+      "account": "Pinnacle BioSystems",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Closed Won",
+      "forecastCategory": "Closed",
+      "amount": 1240000,
+      "probability": 1,
+      "expectedCloseDate": "2026-06-01",
+      "lastUpdated": "2026-06-01"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt-2026-06-14-001",
+      "type": "opportunity.updated",
+      "opportunityId": "OPP-2026-005",
+      "createdAt": "2026-06-14T20:45:00Z",
+      "summary": "Blue Ridge County amount updated for demo goal attainment."
+    }
+  ]
+}

@@ -1,16 +1,27 @@
 # Demo Script
 
-1. Show `data/crm-export-june-2026.xlsx` and explain that it is a synthetic CRM export.
-2. Open the website and point out that closed-won revenue is currently behind the `$2,000,000` goal.
-3. Change one Closed Won amount or change another opportunity to `Closed Won` so closed-won revenue moves above the goal.
-4. Start `npm run watch:excel` for the GitHub Actions path, or `npm run watch:routine` for the Claude Routine path.
-5. Save the workbook.
-6. Point out that the watcher commits and pushes only the workbook.
-7. For the Actions path, open GitHub Actions and show `.github/workflows/crm-export-to-main.yml` running.
-8. For the Routine path, show the `crm-refresh-*` release and the Claude Routine run.
-9. When it completes, refresh GitHub Pages and point out that the numbers changed first, then the AI copy changed to match.
-10. Open `site/data/pipeline.json` and `site/data/ai-summary.json` to show the separation between facts and AI-authored text.
+1. Show `data/mock-crm.json` and explain that it is a sanitized CRM source.
+2. Show `.mcp.json` and `scripts/mock_crm_mcp_server.py` to explain that Claude/tools can query the CRM through MCP.
+3. Open the website and point out the current closed-won goal status.
+4. Run one of these:
+
+   ```bash
+   npm run crm:win-actions
+   ```
+
+   or:
+
+   ```bash
+   npm run crm:win-routine
+   ```
+
+5. Explain that this simulates a CRM user changing an opportunity to `Closed Won`.
+6. For the Actions path, open GitHub Actions and show `.github/workflows/mock-crm-to-main.yml` running.
+7. For the Routine path, show the `crm-refresh-*` release and the Claude Routine run.
+8. When it completes, refresh GitHub Pages.
+9. Open `site/data/pipeline.json` and show that the numbers are a validated CRM snapshot.
+10. Open `site/data/ai-summary.json` and show that the AI copy references source keys from the snapshot.
 
 Close with this framing:
 
-> The AI never owns the numbers. The CRM export owns the numbers; the AI owns the summary language after the metrics are validated.
+> The CRM owns the numbers. The MCP server exposes the CRM. The deterministic sync freezes validated facts. The AI only writes language from those facts.

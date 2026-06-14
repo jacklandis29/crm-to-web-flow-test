@@ -1,9 +1,11 @@
 {
   "run": {
-    "generatedAt": "2026-06-14T20:41:59+00:00",
-    "sourceFile": "data/crm-export-june-2026.xlsx",
-    "sourceSheet": "CRM_Export",
-    "sourceSha256": "3fc11b52cc3a63c9b5aa0e16db5da8fa6952b0a7f77846d7aae1e925bc8f3650"
+    "generatedAt": "2026-06-14T21:05:40+00:00",
+    "sourceFile": "data/mock-crm.json",
+    "sourceSheet": "mock_crm.opportunities",
+    "sourceSha256": "178cbc2f42bd41c8d9fd77b4f228e88f94dae09822e5a0c92e82cbcde21e65d6",
+    "sourceSystem": "MockCRM",
+    "sourceRevision": 7
   },
   "checks": [
     {
@@ -27,21 +29,21 @@
     {
       "name": "Rows validated",
       "status": "pass",
-      "detail": "24 opportunity rows parsed from export.",
+      "detail": "12 opportunity rows parsed from export.",
       "evidence": {
-        "rowCount": 24,
+        "rowCount": 12,
         "columns": [
-          "Opportunity ID",
-          "Account",
-          "Segment",
-          "Region",
-          "Owner",
-          "Stage",
-          "Forecast Category",
-          "Amount",
-          "Probability",
-          "Expected Close Date",
-          "Last Updated"
+          "opportunityId",
+          "account",
+          "segment",
+          "region",
+          "owner",
+          "stage",
+          "forecastCategory",
+          "amount",
+          "probability",
+          "expectedCloseDate",
+          "lastUpdated"
         ]
       }
     },
@@ -62,6 +64,15 @@
         "aiInput": "site/data/pipeline.json",
         "aiOutput": "site/data/ai-summary.json",
         "numberEditing": "disallowed"
+      }
+    },
+    {
+      "name": "Mock CRM revision captured",
+      "status": "pass",
+      "detail": "The public website snapshot includes the CRM revision and source hash.",
+      "evidence": {
+        "revision": 7,
+        "sourceSha256": "178cbc2f42bd41c8d9fd77b4f228e88f94dae09822e5a0c92e82cbcde21e65d6"
       }
     }
   ]
