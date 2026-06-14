@@ -11,14 +11,51 @@ change-aware copy, validates, and commits the generated site data to main.
 from __future__ import annotations
 
 import argparse
+import json
+import subprocess
 import sys
 
+from mock_crm_store import DEFAULT_CRM_PATH, load_database, save_database, utc_now
 from mock_crm_update import publish_release, pull_latest, push_with_rebase_retry, run
 
 
 def crm_has_uncommitted_change() -> bool:
     result = run(["git", "status", "--porcelain", "--", "data/mock-crm.json"], check=False)
     return bool(result.stdout.strip())
+
+
+def _head_revision() -> int | None:
+    try:
+        result = subprocess.run(["git", "show", "HEAD:data/mock-crm.json"], capture_output=True, text=True)
+    except Exception:
+        return None
+    if result.returncode != 0 or not result.stdout.strip():
+        return None
+    try:
+        return json.loads(result.stdout).get("metadata", {}).get("revision")
+    except json.JSONDecodeError:
+        return None
+
+
+def ensure_fresh_revision() -> None:
+    """Guarantee a strictly-increasing revision so the release tag is unique.
+
+    A hand edit to the JSON changes the numbers but not metadata.revision, which
+    would collide with an existing release tag and fail to wake the routine. If
+    the content changed but the revision didn't advance past what's published,
+    bump it (edits made through `crm:edit` already advance it, so this is a no-op).
+    """
+    head_rev = _head_revision()
+    if head_rev is None:
+        return
+    database = load_database(DEFAULT_CRM_PATH)
+    metadata = database.setdefault("metadata", {})
+    current = int(metadata.get("revision", 0) or 0)
+    if current <= head_rev:
+        metadata["revision"] = head_rev + 1
+        metadata["updatedAt"] = utc_now()
+        save_database(database, DEFAULT_CRM_PATH)
+        print(f"Bumped CRM revision to {metadata['revision']} for a unique release tag.")
 
 
 def main() -> int:
@@ -33,6 +70,7 @@ def main() -> int:
 
     try:
         if crm_has_uncommitted_change():
+            ensure_fresh_revision()
             run(["git", "add", "data/mock-crm.json"])
             run(["git", "commit", "-m", "Mock CRM update [routine]", "--", "data/mock-crm.json"])
             print("Committed data/mock-crm.json.")

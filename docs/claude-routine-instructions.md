@@ -73,24 +73,32 @@ Give the routine permission to:
 - Run repository commands if the UI asks for behavior/tool permissions
 - Use the mock CRM MCP connector if you configure it in Claude
 
-## Demo Choreography
+## Demo Choreography (edit any company, on camera)
 
-1. Push the repo to GitHub.
-2. Enable GitHub Pages.
-3. Reset to the known behind-goal baseline:
-
-   ```bash
-   npm run cloud:reset
-   ```
-
-4. Wait for GitHub Pages to redeploy, then open the live Pages site. It should show closed-won sales behind goal.
-5. Run the actual demo once:
+1. Push the repo to GitHub; enable GitHub Pages (Settings → Pages → source: GitHub Actions).
+2. Open the live Pages site. Note the current numbers — no "Updated from CRM" banner.
+3. Edit any opportunity. Either hand-edit `data/mock-crm.json`, or:
 
    ```bash
-   npm run cloud:win
+   npm run crm:edit -- --opportunity OPP-2026-001 --amount 9185000
    ```
 
-6. That command updates `data/mock-crm.json`, pushes it with a `[routine]` marker, and publishes a `crm-refresh-rev-*` GitHub release.
-7. The Claude Routine fires from the release event.
-8. Claude syncs CRM data, rewrites AI copy, validates, and commits generated JSON files to `main`.
-9. GitHub Pages redeploys and the live site changes.
+   (`crm:edit` bumps the revision and logs a change event; a hand edit works too —
+   `cloud:push` will bump the revision for you so the release tag stays unique.)
+4. Publish it to wake the routine:
+
+   ```bash
+   npm run cloud:push
+   ```
+
+5. That commits `data/mock-crm.json` with a `[routine]` marker, pushes it, and publishes a
+   `crm-refresh-rev-*` GitHub release.
+6. The Claude Routine fires from the release event.
+7. Claude runs the sync, reads `pipeline.json` (including `changeReport`), authors the
+   **change-aware** copy that names what you edited, validates, and commits the generated
+   JSON to `main`.
+8. GitHub Pages redeploys; the live site shows your number change and the AI's "Updated
+   from CRM" banner about it.
+
+To reset for another take: `npm run cloud:reset` (scripted baseline) or revert the CRM
+commit and push.
