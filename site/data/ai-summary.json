@@ -1,26 +1,27 @@
 {
   "metadata": {
     "generatedBy": "local-simulated-ai",
-    "generatedAt": "2026-06-14T22:05:38+00:00",
+    "generatedAt": "2026-06-14T22:34:44+00:00",
     "sourceFile": "site/data/pipeline.json",
-    "sourceSha256": "ffe94315c766e4db4059b7936b2afead63a6a44dac141592f767b619607c4776",
+    "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
     "dataAsOf": "2026-06-14",
     "guardrail": "AI copy is generated from validated metrics and does not modify numeric source data."
   },
   "hero": {
-    "headline": "Closed-won revenue is behind goal by $250,000",
-    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against a $2,000,000 goal, leaving the team at 88% of target.",
+    "headline": "Closed-won sales are behind goal by $250,000",
+    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against the $2,000,000 goal \u2014 88% of target, a $250,000 gap to close. $5,760,000 of pipeline is still open and working to close it.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
       "metrics.closedWonDelta",
-      "metrics.closedWonAttainment"
+      "metrics.closedWonAttainment",
+      "metrics.openPipeline"
     ]
   },
   "cards": [
     {
-      "title": "Goal status changed",
-      "body": "Closed-won sales missed the $2,000,000 goal by $250,000. The website copy changed because the CRM-derived metric changed.",
+      "title": "Goal status",
+      "body": "Closed-won revenue missed the $2,000,000 target by $250,000, landing at 88% attainment.",
       "sources": [
         "metrics.closedWon",
         "metrics.closedWonGoal",
@@ -29,29 +30,33 @@
       ]
     },
     {
-      "title": "Pipeline context",
-      "body": "The validated export contains 12 opportunities totaling $8,200,000, with $5,241,300 in weighted pipeline.",
+      "title": "What's driving it",
+      "body": "The biggest win on the board so far is Pinnacle BioSystems at $1,240,000, booked by Jordan Miles in the West region. It is not yet enough to clear the target.",
       "sources": [
-        "metrics.totalRecords",
-        "metrics.pipelineValue",
-        "metrics.weightedPipeline"
+        "opportunities[9].account",
+        "opportunities[9].amount",
+        "opportunities[9].owner",
+        "opportunities[9].region"
       ]
     },
     {
-      "title": "Regional concentration",
-      "body": "West is the largest region in this refresh at $3,830,000 across 4 opportunities.",
+      "title": "Pipeline coverage",
+      "body": "$5,760,000 of pipeline is still open. Weighted by win probability, the full book forecasts to $5,241,300. Jordan Miles is carrying the most at $3,830,000.",
       "sources": [
-        "summaries.byRegion[0].name",
-        "summaries.byRegion[0].amount",
-        "summaries.byRegion[0].count"
+        "metrics.openPipeline",
+        "metrics.weightedPipeline",
+        "summaries.byOwner[0].name",
+        "summaries.byOwner[0].amount"
       ]
     },
     {
-      "title": "Follow-up queue",
-      "body": "2 open opportunities have not been updated in 21+ days, so they stay visible for review.",
+      "title": "Needs attention",
+      "body": "2 open opportunities have gone untouched for 21+ days and stay flagged for follow-up. Closest to landing: 3 deals worth $2,300,000 sitting in Negotiation.",
       "sources": [
         "metrics.staleOpenCount",
-        "metadata.staleThresholdDays"
+        "metadata.staleThresholdDays",
+        "summaries.byStage[3].count",
+        "summaries.byStage[3].amount"
       ]
     }
   ]

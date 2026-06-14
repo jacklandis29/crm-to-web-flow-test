@@ -3,58 +3,123 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CRM Pipeline Status</title>
+    <title>Sales Pipeline Status — Mock CRM Demo</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Mock CRM MCP Demo</p>
-          <h1>CRM Pipeline Status</h1>
+      <header class="topbar reveal">
+        <div class="brand">
+          <p class="eyebrow">Mock CRM&nbsp;&rarr;&nbsp;Website</p>
+          <h1>Sales Pipeline Status</h1>
+          <p class="subtitle">The CRM owns the numbers. Claude writes the story.</p>
         </div>
         <div class="header-meta">
-          <span id="revisionBadge">Loading CRM</span>
-          <span id="lastRefresh">Loading snapshot</span>
+          <span class="chip" id="revisionBadge">Loading CRM…</span>
+          <span class="chip" id="lastRefresh">Loading snapshot…</span>
         </div>
       </header>
 
       <main>
-        <section class="kpi-strip" aria-label="CRM metrics">
-          <article class="kpi primary">
-            <span class="label">Closed-won sales</span>
-            <strong id="closedWonValue">$0</strong>
-            <small id="goalDelta">Loading goal status</small>
-          </article>
-          <article class="kpi">
-            <span class="label">Goal</span>
-            <strong id="goalValue">$0</strong>
-            <small id="attainmentValue">0% attainment</small>
-          </article>
+        <!-- Goal banner: the before/after centerpiece -->
+        <section class="goal-card reveal" aria-label="Closed-won goal status">
+          <div class="goal-head">
+            <div class="goal-headline">
+              <span class="label">Closed-won sales</span>
+              <strong class="goal-number" id="closedWonValue" data-value="0">$0</strong>
+            </div>
+            <span class="delta-pill" id="goalDelta">Loading…</span>
+          </div>
+          <div class="progress">
+            <div class="progress-track">
+              <div class="progress-fill" id="goalProgress" style="width:0%"></div>
+              <div class="progress-marker"><span>Goal</span></div>
+            </div>
+            <div class="progress-scale">
+              <span id="attainmentValue">0% of goal</span>
+              <span id="goalValue">Goal $0</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Supporting KPIs -->
+        <section class="kpi-strip reveal" aria-label="Pipeline metrics">
           <article class="kpi">
             <span class="label">Total pipeline</span>
-            <strong id="pipelineValue">$0</strong>
-            <small id="recordCount">0 CRM records</small>
+            <strong id="pipelineValue" data-value="0">$0</strong>
+            <small id="recordCount">0 records</small>
+          </article>
+          <article class="kpi">
+            <span class="label">Weighted forecast</span>
+            <strong id="weightedValue" data-value="0">$0</strong>
+            <small>probability-adjusted</small>
+          </article>
+          <article class="kpi">
+            <span class="label">Open pipeline</span>
+            <strong id="openValue" data-value="0">$0</strong>
+            <small id="openMeta">still in play</small>
           </article>
         </section>
 
-        <section class="summary-section" aria-label="Claude generated summary">
+        <!-- Claude-authored copy -->
+        <section class="ai-section reveal" aria-label="Claude generated copy">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">Claude output</p>
-              <h2>Website copy generated from the validated CRM snapshot</h2>
+              <p class="eyebrow brand-eyebrow">Claude output</p>
+              <h2>Website copy, written from the validated snapshot</h2>
             </div>
-            <span id="aiStatus">AI pending</span>
+            <span class="chip ai-chip" id="aiStatus">AI pending</span>
           </div>
-          <div class="summary-copy">
-            <h3 id="copyHeadline">Loading latest summary</h3>
+
+          <div class="ai-hero">
+            <h3 id="copyHeadline">Loading latest summary…</h3>
             <p id="copyBody"></p>
+            <div class="source-row" id="copySources"></div>
           </div>
-          <div class="source-row" id="copySources"></div>
+
+          <div class="card-grid" id="cardGrid"></div>
+
+          <p class="guardrail-note">
+            Every claim is tagged with the <code>pipeline.json</code> field it came from. The
+            validator rejects any copy whose source keys don't resolve — so the model can shape the
+            words, never the numbers.
+          </p>
         </section>
 
-        <section class="lineage-section" aria-label="Data lineage">
+        <!-- Analytics layer -->
+        <section class="analytics reveal" aria-label="Pipeline analytics">
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Pipeline by stage</h2>
+              <span class="muted-mini"><i class="swatch amount"></i> amount &nbsp; <i class="swatch weighted"></i> weighted</span>
+            </div>
+            <div class="bars" id="stageBars"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Opportunities</h2>
+              <span class="muted-mini" id="oppCount"></span>
+            </div>
+            <div class="table-wrap">
+              <table class="opp-table">
+                <thead>
+                  <tr>
+                    <th>Account</th>
+                    <th>Owner</th>
+                    <th>Stage</th>
+                    <th class="num">Amount</th>
+                    <th class="num">Win&nbsp;%</th>
+                  </tr>
+                </thead>
+                <tbody id="oppRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lineage / trust strip -->
+        <section class="lineage reveal" aria-label="Data lineage">
           <div class="lineage-item">
             <span class="step">1</span>
             <div>
@@ -76,8 +141,19 @@
               <small id="sourceHash">hash pending</small>
             </div>
           </div>
+          <div class="lineage-item">
+            <span class="step">4</span>
+            <div>
+              <strong>GitHub Pages deployed</strong>
+              <small>static site, no live backend</small>
+            </div>
+          </div>
         </section>
       </main>
+
+      <footer class="foot">
+        Synthetic data · numbers owned by the CRM snapshot · copy authored by the AI step
+      </footer>
     </div>
 
     <script src="./app.js" type="module"></script>

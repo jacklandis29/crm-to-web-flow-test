@@ -50,7 +50,7 @@ MCP is not the trigger by itself. It gives Claude a way to read CRM data when Cl
 For a one-command demo that changes the mock CRM and triggers the Claude Routine through a release:
 
 ```bash
-npm run crm:win
+npm run cloud:win
 ```
 
 The command updates `OPP-2026-002` to `Closed Won`, pushes the CRM change, and publishes a `crm-refresh-*` release. The release wakes the Claude Routine, which syncs the CRM snapshot, writes copy, validates, and commits generated website data.

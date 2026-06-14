@@ -1,43 +1,70 @@
-# Demo Script
+# Demo Script (recorded walkthrough)
 
-1. Reset to a clean baseline:
+Total runtime: ~2 minutes. Everything runs locally — no network, nothing to fail
+on camera.
 
-   ```bash
-   npm run crm:reset
-   ```
+## Before you record
 
-   Wait for GitHub Pages to redeploy.
+```bash
+npm run demo:reset   # start behind goal
+npm run serve        # http://localhost:4173
+```
 
-2. Open the website. It should show one obvious state:
-   - closed-won sales are behind the goal
-   - Claude copy says they are behind the goal
+Open the page. It should read **$1,750,000 closed-won, $250,000 behind goal**, red
+progress bar.
 
-3. Show the CRM source briefly:
-   - `data/mock-crm.json`
-   - `.mcp.json`
-   - `scripts/mock_crm_mcp_server.py`
+## The talk track
 
-4. Run:
+**1. Frame the problem (15s).**
+> "Sales leadership wants a live internal page off the CRM. Easy to wire the
+> numbers up. The risk is the *commentary* — nobody wants an AI quietly inventing
+> a figure on a page execs read. So I split it: the CRM owns the numbers, code
+> validates them, and the AI only ever writes words."
 
-   ```bash
-   npm run crm:win
-   ```
+**2. Show the source of truth (20s).** Open `data/mock-crm.json`.
+> "This is the mock CRM — the system of record. It's also exposed over MCP, so an
+> agent can query it as live tools, not a copied spreadsheet."
 
-5. Explain what just happened:
-   - a mock CRM opportunity changed to `Closed Won`
-   - the command pushed the CRM change
-   - the command published a `crm-refresh-*` release
-   - that release wakes the Claude Routine
+Optionally run `npm run crm:mcp` and call `crm_get_revision` to show it's a real
+service.
 
-6. Show the Claude Routine run.
+**3. Show the page (20s).** Scroll it.
+> "Numbers up top come straight from the validated CRM snapshot. Down here is the
+> Claude-authored copy — and notice every sentence is tagged with the exact
+> `pipeline.json` field it used. That's the guardrail, made visible."
 
-7. Refresh GitHub Pages.
+**4. Change the CRM (15s).** In a terminal:
 
-8. The website should now show:
-   - the closed-won number changed
-   - the Claude copy changed
-   - the source hash/revision changed
+```bash
+npm run demo:win
+```
 
-Close with this framing:
+> "A deal just closed in the CRM — CivicGrid Energy. That one command updated the
+> CRM, re-ran validation into a fresh snapshot, re-authored the copy, and re-ran
+> the guardrail. Watch the validation pass."
 
-> The CRM owns the numbers. The MCP server exposes the CRM. Claude writes the words. The website shows both changes clearly.
+**5. The payoff (20s).** Refresh the browser.
+> "Closed-won jumps to $3 million — 150% of goal, a million ahead. The bar goes
+> green. And the AI copy rewrote *itself*: it now names CivicGrid's close as the
+> reason, still citing the validated field for every number. The model changed the
+> story. It never changed a number."
+
+**6. Close (15s).**
+> "Locally this is a deterministic stand-in so the demo is repeatable. In
+> production the exact same contract runs in the cloud: a CRM change publishes a
+> release, a Claude Routine wakes up, reads the validated snapshot, writes the
+> copy, and the guardrail blocks the commit if any claim can't be traced. Same
+> boundary, same safety."
+
+## Reset between takes
+
+```bash
+npm run demo:reset
+```
+
+## If you want to show the cloud path too
+
+`docs/full-automation.md` covers `npm run cloud:win`, which pushes the CRM change
+and publishes the GitHub Release that triggers the Claude Routine. Leave this out
+of the core recording — it depends on GitHub Pages redeploy timing — and mention
+it verbally instead.

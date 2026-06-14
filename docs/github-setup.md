@@ -15,7 +15,7 @@ GitHub Actions is only used to deploy Pages in this version. Claude Routine owns
 Run:
 
 ```bash
-npm run crm:win
+npm run cloud:win
 ```
 
 This updates `data/mock-crm.json`, commits it with `[routine]`, pushes it, and publishes a `crm-refresh-*` GitHub release. The release wakes the Claude Routine.
@@ -35,11 +35,3 @@ npm run crm:mcp
 ```
 
 The repo includes `.mcp.json` for MCP-aware local clients. For a cloud-hosted Claude connector, the same server would need to run in an environment Claude can access or be adapted to the connector hosting model.
-
-## Legacy Excel Flow
-
-The older Excel route still exists for comparison:
-
-```bash
-npm run watch:excel
-```

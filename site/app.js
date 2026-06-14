@@ -19,53 +19,152 @@ const snapshotTime = new Intl.DateTimeFormat("en-US", {
 });
 
 const $ = (selector) => document.querySelector(selector);
-
-function goalStatus(delta) {
-  const direction = delta >= 0 ? "ahead of goal" : "behind goal";
-  return `${money.format(Math.abs(delta))} ${direction}`;
-}
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function formatSnapshotTime(metadata) {
   const timestamp = metadata.sourceUpdatedAt || metadata.generatedAt;
   const parsed = timestamp ? new Date(timestamp) : null;
-
   if (parsed && !Number.isNaN(parsed.valueOf())) {
     return snapshotTime.format(parsed);
   }
-
   return metadata.dataAsOf;
 }
 
-function renderFacts(pipeline) {
-  const { metadata, metrics } = pipeline;
-  const source = metadata.sourceSystem || "CRM";
-  const revision = metadata.sourceRevision ? `rev ${metadata.sourceRevision}` : "snapshot";
-
-  $("#revisionBadge").textContent = `${source} ${revision}`;
-  $("#lastRefresh").textContent = `Data as of ${formatSnapshotTime(metadata)}`;
-  $("#crmSource").textContent = `${source} ${revision}`;
-  $("#closedWonValue").textContent = money.format(metrics.closedWon);
-  $("#goalDelta").textContent = goalStatus(metrics.closedWonDelta);
-  $("#goalDelta").className = metrics.closedWonDelta >= 0 ? "positive" : "negative";
-  $("#goalValue").textContent = money.format(metrics.closedWonGoal);
-  $("#attainmentValue").textContent = `${percent.format(metrics.closedWonAttainment)} attainment`;
-  $("#pipelineValue").textContent = money.format(metrics.pipelineValue);
-  $("#recordCount").textContent = `${metrics.totalRecords} CRM records`;
-  $("#sourceHash").textContent = `sha256 ${metadata.sourceSha256.slice(0, 12)}`;
+/* Animate a currency value from 0 → target for the video flip. */
+function countUp(el, target) {
+  if (!el) return;
+  if (reducedMotion) {
+    el.textContent = money.format(target);
+    return;
+  }
+  const duration = 900;
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = money.format(Math.round(target * eased));
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 }
 
-function renderCopy(summary) {
-  $("#aiStatus").textContent = summary.metadata.generatedBy;
+function renderHeader(pipeline) {
+  const { metadata } = pipeline;
+  const source = metadata.sourceSystem || "CRM";
+  const revision = metadata.sourceRevision ? `rev ${metadata.sourceRevision}` : "snapshot";
+  $("#revisionBadge").textContent = `${source} · ${revision}`;
+  $("#lastRefresh").textContent = `Data as of ${formatSnapshotTime(metadata)}`;
+  $("#crmSource").textContent = `${source} ${revision}`;
+}
+
+function renderGoal(pipeline) {
+  const m = pipeline.metrics;
+  const ahead = m.closedWonDelta >= 0;
+
+  const delta = $("#goalDelta");
+  delta.textContent = `${money.format(Math.abs(m.closedWonDelta))} ${ahead ? "ahead of goal" : "behind goal"}`;
+  delta.className = `delta-pill ${ahead ? "ahead" : "behind"}`;
+
+  $("#goalValue").textContent = `Goal ${money.format(m.closedWonGoal)}`;
+  $("#attainmentValue").textContent = `${percent.format(m.closedWonAttainment)} of goal`;
+
+  countUp($("#closedWonValue"), m.closedWon);
+
+  const fill = $("#goalProgress");
+  fill.classList.toggle("ahead", ahead);
+  const width = Math.min(100, Math.round(m.closedWonAttainment * 100));
+  if (reducedMotion) {
+    fill.style.width = `${width}%`;
+  } else {
+    requestAnimationFrame(() => (fill.style.width = `${width}%`));
+  }
+}
+
+function renderKpis(pipeline) {
+  const m = pipeline.metrics;
+  countUp($("#pipelineValue"), m.pipelineValue);
+  countUp($("#weightedValue"), m.weightedPipeline);
+  countUp($("#openValue"), m.openPipeline);
+  $("#recordCount").textContent = `${m.totalRecords} opportunities`;
+  $("#openMeta").textContent = `${m.topRegion} region leads`;
+}
+
+function sourceChips(sources) {
+  return sources.map((source) => `<code>${source}</code>`).join("");
+}
+
+function renderAI(summary) {
+  $("#aiStatus").textContent = `AI: ${summary.metadata.generatedBy}`;
   $("#copyHeadline").textContent = summary.hero.headline;
   $("#copyBody").textContent = summary.hero.body;
-  $("#copySources").innerHTML = summary.hero.sources
-    .map((source) => `<code>${source}</code>`)
+  $("#copySources").innerHTML = sourceChips(summary.hero.sources);
+
+  $("#cardGrid").innerHTML = summary.cards
+    .map(
+      (card) => `
+      <article class="ai-card">
+        <h4>${card.title}</h4>
+        <p>${card.body}</p>
+        <div class="source-row">${sourceChips(card.sources)}</div>
+      </article>`,
+    )
     .join("");
 }
 
-function renderAudit(audit) {
-  const passing = audit.checks.filter((check) => check.status === "pass").length;
+function stageClass(name) {
+  if (name === "Closed Won") return "won";
+  if (name === "Closed Lost") return "lost";
+  return "";
+}
+
+function renderStageBars(pipeline) {
+  const stages = pipeline.summaries.byStage;
+  const max = Math.max(...stages.map((s) => s.amount), 1);
+  $("#stageBars").innerHTML = stages
+    .map((s) => {
+      const amountPct = (s.amount / max) * 100;
+      const weightedPct = (s.weightedAmount / max) * 100;
+      return `
+        <div class="bar-row ${stageClass(s.name)}">
+          <div class="bar-label">${s.name}<small>${s.count} ${s.count === 1 ? "deal" : "deals"}</small></div>
+          <div class="bar-track">
+            <div class="bar-amount" data-w="${amountPct}"></div>
+            <div class="bar-weighted" data-w="${weightedPct}"></div>
+          </div>
+          <div class="bar-value">${money.format(s.amount)}</div>
+        </div>`;
+    })
+    .join("");
+
+  const grow = () =>
+    document.querySelectorAll("#stageBars [data-w]").forEach((el) => {
+      el.style.width = `${el.dataset.w}%`;
+    });
+  if (reducedMotion) grow();
+  else requestAnimationFrame(grow);
+}
+
+function renderOppTable(pipeline) {
+  const opps = [...pipeline.opportunities].sort((a, b) => b.amount - a.amount);
+  $("#oppCount").textContent = `${opps.length} records`;
+  $("#oppRows").innerHTML = opps
+    .map(
+      (o) => `
+      <tr>
+        <td class="acct">${o.account}</td>
+        <td>${o.owner}</td>
+        <td><span class="stage-tag ${stageClass(o.stage)}">${o.stage}</span></td>
+        <td class="num">${money.format(o.amount)}</td>
+        <td class="num">${percent.format(o.probability)}</td>
+      </tr>`,
+    )
+    .join("");
+}
+
+function renderLineage(audit, pipeline) {
+  const passing = audit.checks.filter((c) => c.status === "pass").length;
   $("#auditStatus").textContent = `${passing} validation checks passed`;
+  $("#sourceHash").textContent = `sha256 ${pipeline.metadata.sourceSha256.slice(0, 12)}…`;
 }
 
 function showError(error) {
@@ -73,31 +172,30 @@ function showError(error) {
     <div class="error-state">
       <strong>Could not load CRM demo data.</strong>
       <p>${error.message}</p>
-    </div>
-  `;
+    </div>`;
 }
 
 async function init() {
   try {
-    const [pipelineResponse, auditResponse, aiResponse] = await Promise.all([
+    const responses = await Promise.all([
       fetch("./data/pipeline.json"),
       fetch("./data/audit-log.json"),
       fetch("./data/ai-summary.json"),
     ]);
-
-    if (!pipelineResponse.ok || !auditResponse.ok || !aiResponse.ok) {
+    if (responses.some((r) => !r.ok)) {
       throw new Error("Run npm run generate, then refresh the page.");
     }
+    const [pipeline, audit, summary] = await Promise.all(responses.map((r) => r.json()));
 
-    const [pipeline, audit, summary] = await Promise.all([
-      pipelineResponse.json(),
-      auditResponse.json(),
-      aiResponse.json(),
-    ]);
+    renderHeader(pipeline);
+    renderGoal(pipeline);
+    renderKpis(pipeline);
+    renderAI(summary);
+    renderStageBars(pipeline);
+    renderOppTable(pipeline);
+    renderLineage(audit, pipeline);
 
-    renderFacts(pipeline);
-    renderCopy(summary);
-    renderAudit(audit);
+    requestAnimationFrame(() => document.body.classList.add("ready"));
   } catch (error) {
     showError(error);
   }

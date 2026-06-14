@@ -17,7 +17,7 @@ Mock CRM change
 First reset the public site to the known behind-goal baseline:
 
 ```bash
-npm run crm:reset
+npm run cloud:reset
 ```
 
 After GitHub Pages redeploys, run the actual automated demo:
@@ -25,7 +25,7 @@ After GitHub Pages redeploys, run the actual automated demo:
 Run:
 
 ```bash
-npm run crm:win
+npm run cloud:win
 ```
 
 End-to-end:

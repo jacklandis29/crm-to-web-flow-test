@@ -73,14 +73,14 @@ Give the routine permission to:
 3. Reset to the known behind-goal baseline:
 
    ```bash
-   npm run crm:reset
+   npm run cloud:reset
    ```
 
 4. Wait for GitHub Pages to redeploy, then open the live Pages site. It should show closed-won sales behind goal.
 5. Run the actual demo once:
 
    ```bash
-   npm run crm:win
+   npm run cloud:win
    ```
 
 6. That command updates `data/mock-crm.json`, pushes it with a `[routine]` marker, and publishes a `crm-refresh-rev-*` GitHub release.

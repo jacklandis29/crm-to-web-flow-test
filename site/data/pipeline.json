@@ -3,14 +3,14 @@
     "demoName": "Sanitized CRM to Web Flow",
     "sourceFile": "data/mock-crm.json",
     "sourceSheet": "mock_crm.opportunities",
-    "sourceSha256": "ffe94315c766e4db4059b7936b2afead63a6a44dac141592f767b619607c4776",
-    "generatedAt": "2026-06-14T22:05:37+00:00",
+    "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
+    "generatedAt": "2026-06-14T22:34:44+00:00",
     "dataAsOf": "2026-06-14",
     "staleThresholdDays": 21,
     "guardrail": "This file is a validated public snapshot of mock CRM data; AI-authored text lives in ai-summary.json.",
     "sourceSystem": "MockCRM",
-    "sourceRevision": 10,
-    "sourceUpdatedAt": "2026-06-14T22:05:37Z"
+    "sourceRevision": 18,
+    "sourceUpdatedAt": "2026-06-14T22:34:43Z"
   },
   "metrics": {
     "totalRecords": 12,
