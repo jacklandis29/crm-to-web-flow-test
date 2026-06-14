@@ -3,20 +3,20 @@
     "demoName": "Sanitized CRM to Web Flow",
     "sourceFile": "data/mock-crm.json",
     "sourceSheet": "mock_crm.opportunities",
-    "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
-    "generatedAt": "2026-06-14T22:56:54+00:00",
+    "sourceSha256": "c0b1f5c1620150f3030127b11c2252f3afb56618af07561e7e2a35f11192d4a3",
+    "generatedAt": "2026-06-14T23:34:00+00:00",
     "dataAsOf": "2026-06-14",
     "staleThresholdDays": 21,
     "guardrail": "This file is a validated public snapshot of mock CRM data; AI-authored text lives in ai-summary.json.",
     "sourceSystem": "MockCRM",
-    "sourceRevision": 18,
-    "sourceUpdatedAt": "2026-06-14T22:34:43Z"
+    "sourceRevision": 19,
+    "sourceUpdatedAt": "2026-06-14T23:33:13Z"
   },
   "metrics": {
     "totalRecords": 12,
-    "pipelineValue": 8200000.0,
-    "weightedPipeline": 5241300.0,
-    "openPipeline": 5760000.0,
+    "pipelineValue": 16200000.0,
+    "weightedPipeline": 11801300.0,
+    "openPipeline": 13760000.0,
     "closedWon": 1750000.0,
     "closedWonGoal": 2000000,
     "closedWonDelta": -250000.0,
@@ -24,7 +24,7 @@
     "closedLost": 690000.0,
     "averageProbability": 0.5883,
     "staleOpenCount": 2,
-    "topRegion": "West",
+    "topRegion": "Northeast",
     "topSegment": "Enterprise",
     "largestStage": "Negotiation"
   },
@@ -51,8 +51,8 @@
       {
         "name": "Negotiation",
         "count": 3,
-        "amount": 2300000.0,
-        "weightedAmount": 1802350.0
+        "amount": 10300000.0,
+        "weightedAmount": 8362350.0
       },
       {
         "name": "Closed Won",
@@ -69,16 +69,16 @@
     ],
     "byRegion": [
       {
+        "name": "Northeast",
+        "count": 3,
+        "amount": 10240000.0,
+        "weightedAmount": 7732450.0
+      },
+      {
         "name": "West",
         "count": 4,
         "amount": 3830000.0,
         "weightedAmount": 2759800.0
-      },
-      {
-        "name": "Northeast",
-        "count": 3,
-        "amount": 2240000.0,
-        "weightedAmount": 1172450.0
       },
       {
         "name": "Southeast",
@@ -95,16 +95,16 @@
     ],
     "byOwner": [
       {
+        "name": "Avery Chen",
+        "count": 3,
+        "amount": 10240000.0,
+        "weightedAmount": 7732450.0
+      },
+      {
         "name": "Jordan Miles",
         "count": 4,
         "amount": 3830000.0,
         "weightedAmount": 2759800.0
-      },
-      {
-        "name": "Avery Chen",
-        "count": 3,
-        "amount": 2240000.0,
-        "weightedAmount": 1172450.0
       },
       {
         "name": "Mina Patel",
@@ -123,8 +123,8 @@
       {
         "name": "Enterprise",
         "count": 4,
-        "amount": 3295000.0,
-        "weightedAmount": 1833300.0
+        "amount": 11295000.0,
+        "weightedAmount": 8393300.0
       },
       {
         "name": "Strategic",
@@ -239,11 +239,11 @@
       "owner": "Avery Chen",
       "stage": "Negotiation",
       "forecastCategory": "Commit",
-      "amount": 1185000.0,
+      "amount": 9185000.0,
       "probability": 0.82,
-      "weightedAmount": 971700.0,
+      "weightedAmount": 7531700.0,
       "expectedCloseDate": "2026-07-19",
-      "lastUpdated": "2026-06-12"
+      "lastUpdated": "2026-06-14"
     },
     {
       "opportunityId": "OPP-2026-007",
@@ -317,11 +317,41 @@
     }
   ],
   "changeReport": {
-    "hasChanges": false,
-    "summary": "No changes since the last published snapshot.",
+    "hasChanges": true,
+    "summary": "Northstar Logistics grew by $8,000,000.",
     "previousRevision": 18,
     "previousSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
-    "opportunities": [],
-    "metrics": {}
+    "opportunities": [
+      {
+        "opportunityId": "OPP-2026-001",
+        "account": "Northstar Logistics",
+        "index": 6,
+        "changeType": "updated",
+        "fields": {
+          "amount": {
+            "from": 1185000.0,
+            "to": 9185000.0,
+            "delta": 8000000.0
+          }
+        }
+      }
+    ],
+    "metrics": {
+      "pipelineValue": {
+        "from": 8200000.0,
+        "to": 16200000.0,
+        "delta": 8000000.0
+      },
+      "weightedPipeline": {
+        "from": 5241300.0,
+        "to": 11801300.0,
+        "delta": 6560000.0
+      },
+      "openPipeline": {
+        "from": 5760000.0,
+        "to": 13760000.0,
+        "delta": 8000000.0
+      }
+    }
   }
 }

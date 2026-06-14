@@ -1,21 +1,38 @@
 {
   "metadata": {
-    "generatedBy": "local-simulated-ai",
-    "generatedAt": "2026-06-14T22:56:55+00:00",
+    "generatedBy": "claude-sonnet-4-6",
+    "generatedAt": "2026-06-14T23:35:00+00:00",
     "sourceFile": "site/data/pipeline.json",
-    "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
+    "sourceSha256": "c0b1f5c1620150f3030127b11c2252f3afb56618af07561e7e2a35f11192d4a3",
     "dataAsOf": "2026-06-14",
     "guardrail": "AI copy is generated from validated metrics and does not modify numeric source data."
   },
   "hero": {
     "headline": "Closed-won sales are behind goal by $250,000",
-    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against the $2,000,000 goal \u2014 88% of target, a $250,000 gap to close. $5,760,000 of pipeline is still open and working to close it.",
+    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against the $2,000,000 goal — 88% of target, a $250,000 gap to close. $13,760,000 of pipeline is still open and working to close it.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
       "metrics.closedWonDelta",
       "metrics.closedWonAttainment",
       "metrics.openPipeline"
+    ]
+  },
+  "change": {
+    "headline": "Northstar Logistics grew by $8,000,000 — pipeline doubled this refresh",
+    "body": "OPP-2026-001 (Northstar Logistics, Negotiation) was updated from $1,185,000 to $9,185,000, a $8,000,000 increase. Total pipeline value jumped from $8,200,000 to $16,200,000, open pipeline from $5,760,000 to $13,760,000, and weighted pipeline from $5,241,300 to $11,801,300.",
+    "sources": [
+      "changeReport.opportunities[0].account",
+      "changeReport.opportunities[0].fields.amount.from",
+      "changeReport.opportunities[0].fields.amount.to",
+      "changeReport.opportunities[0].fields.amount.delta",
+      "changeReport.metrics.pipelineValue.from",
+      "changeReport.metrics.pipelineValue.to",
+      "changeReport.metrics.openPipeline.from",
+      "changeReport.metrics.openPipeline.to",
+      "changeReport.metrics.weightedPipeline.from",
+      "changeReport.metrics.weightedPipeline.to",
+      "opportunities[6].amount"
     ]
   },
   "cards": [
@@ -41,17 +58,19 @@
     },
     {
       "title": "Pipeline coverage",
-      "body": "$5,760,000 of pipeline is still open. Weighted by win probability, the full book forecasts to $5,241,300. Jordan Miles is carrying the most at $3,830,000.",
+      "body": "$13,760,000 of pipeline is still open. Weighted by win probability, the full book forecasts to $11,801,300. Avery Chen is carrying the most at $10,240,000, led by the Northstar Logistics deal in Negotiation.",
       "sources": [
         "metrics.openPipeline",
         "metrics.weightedPipeline",
         "summaries.byOwner[0].name",
-        "summaries.byOwner[0].amount"
+        "summaries.byOwner[0].amount",
+        "opportunities[6].account",
+        "opportunities[6].stage"
       ]
     },
     {
       "title": "Needs attention",
-      "body": "2 open opportunities have gone untouched for 21+ days and stay flagged for follow-up. Closest to landing: 3 deals worth $2,300,000 sitting in Negotiation.",
+      "body": "2 open opportunities have gone untouched for 21+ days and stay flagged for follow-up. Closest to landing: 3 deals worth $10,300,000 sitting in Negotiation.",
       "sources": [
         "metrics.staleOpenCount",
         "metadata.staleThresholdDays",
