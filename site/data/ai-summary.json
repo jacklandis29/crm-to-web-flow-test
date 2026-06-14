@@ -1,7 +1,7 @@
 {
   "metadata": {
     "generatedBy": "claude-sonnet-4-6",
-    "generatedAt": "2026-06-14T21:55:52+00:00",
+    "generatedAt": "2026-06-14T22:00:00+00:00",
     "sourceFile": "site/data/pipeline.json",
     "sourceSha256": "f33558bc742eb0641a2e5a872a9f4d2858045bb7b29fcc883ea7ffb20c965e05",
     "dataAsOf": "2026-06-14",
@@ -9,7 +9,7 @@
   },
   "hero": {
     "headline": "Closed-won revenue is ahead of goal by $1,250,000",
-    "body": "The latest CRM refresh shows $3,250,000 in closed-won sales against a $2,000,000 goal — 162.5% of target, putting the team $1,250,000 ahead of plan.",
+    "body": "The latest CRM refresh shows $3,250,000 in closed-won sales against a $2,000,000 goal — the team is ahead of target by $1,250,000, reaching 162.5% of attainment.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
@@ -19,8 +19,8 @@
   },
   "cards": [
     {
-      "title": "Exceeding goal by 62.5%",
-      "body": "Closed-won sales of $3,250,000 surpass the $2,000,000 goal by $1,250,000, reaching 162.5% attainment across 3 closed-won opportunities.",
+      "title": "Goal exceeded",
+      "body": "Closed-won sales of $3,250,000 surpass the $2,000,000 goal by $1,250,000, landing at 162.5% attainment. Three opportunities have reached Closed Won status.",
       "sources": [
         "metrics.closedWon",
         "metrics.closedWonGoal",
@@ -30,8 +30,8 @@
       ]
     },
     {
-      "title": "Strong open pipeline",
-      "body": "12 total opportunities carry $8,780,000 in pipeline value, with $6,152,500 weighted and $4,840,000 still open and active.",
+      "title": "Pipeline health",
+      "body": "The validated export contains 12 opportunities totaling $8,780,000, with $6,152,500 in weighted pipeline and $4,840,000 still open.",
       "sources": [
         "metrics.totalRecords",
         "metrics.pipelineValue",
@@ -40,17 +40,19 @@
       ]
     },
     {
-      "title": "West leads all regions",
-      "body": "The West region tops the leaderboard at $4,410,000 across 4 opportunities, representing the largest regional concentration in this refresh.",
+      "title": "Regional concentration",
+      "body": "West is the largest region at $4,410,000 across 4 opportunities, led by the Strategic segment.",
       "sources": [
         "summaries.byRegion[0].name",
         "summaries.byRegion[0].amount",
-        "summaries.byRegion[0].count"
+        "summaries.byRegion[0].count",
+        "metrics.topRegion",
+        "metrics.topSegment"
       ]
     },
     {
       "title": "Follow-up queue",
-      "body": "2 open opportunities have not been updated in 21 or more days and remain visible for review.",
+      "body": "2 open opportunities have not been updated in 21+ days and are flagged for review.",
       "sources": [
         "metrics.staleOpenCount",
         "metadata.staleThresholdDays"
