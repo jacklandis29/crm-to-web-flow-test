@@ -3,3 +3,5 @@ __pycache__/
 node_modules
 .pytest_cache/
 .coverage
+~$*.xlsx
+data/~$*.xlsx

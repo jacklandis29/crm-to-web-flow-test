@@ -63,7 +63,19 @@ def ensure_branch(branch: str) -> None:
         raise RuntimeError(f"Expected git branch '{branch}', but current branch is '{current}'.")
 
 
-def push_workbook(path: Path, branch: str, remote: str) -> None:
+def publish_release(branch: str, prefix: str) -> None:
+    tag = f"{prefix}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    title = f"CRM refresh {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+    notes = (
+        "Automated CRM export refresh trigger. "
+        "Claude Routine should regenerate website data and AI copy from the latest workbook."
+    )
+    print(f"[{timestamp()}] Publishing release {tag} to trigger Claude Routine...")
+    run(["gh", "release", "create", tag, "--target", branch, "--title", title, "--notes", notes])
+    print(f"[{timestamp()}] Release published. Claude Routine should start from the release event.")
+
+
+def push_workbook(path: Path, branch: str, remote: str, publish_routine_release: bool, release_prefix: str) -> None:
     ensure_branch(branch)
     if not has_target_change(path):
         print(f"[{timestamp()}] Workbook save detected, but git has no workbook diff.")
@@ -77,11 +89,15 @@ def push_workbook(path: Path, branch: str, remote: str) -> None:
     if run(["git", "diff", "--cached", "--quiet", "--", str(path)], check=False).returncode == 0:
         print(f"[{timestamp()}] Workbook diff disappeared after staging; skipping commit.")
         return
-    run(["git", "commit", "-m", f"Update CRM export {timestamp(for_commit=True)}", "--", str(path)])
+    suffix = " [routine]" if publish_routine_release else ""
+    run(["git", "commit", "-m", f"Update CRM export {timestamp(for_commit=True)}{suffix}", "--", str(path)])
 
     print(f"[{timestamp()}] Pushing workbook to {remote}/{branch}...")
     run(["git", "push", remote, branch])
-    print(f"[{timestamp()}] Pushed. GitHub Actions will refresh data, AI copy, and Pages.")
+    if publish_routine_release:
+        publish_release(branch, release_prefix)
+    else:
+        print(f"[{timestamp()}] Pushed. GitHub Actions will refresh data, AI copy, and Pages.")
 
 
 def timestamp(*, for_commit: bool = False) -> str:
@@ -97,6 +113,8 @@ def main() -> int:
     parser.add_argument("--remote", default="origin", help="Git remote to push.")
     parser.add_argument("--interval", type=float, default=2.0, help="Polling interval in seconds.")
     parser.add_argument("--debounce", type=float, default=4.0, help="Seconds the workbook must remain unchanged.")
+    parser.add_argument("--publish-release", action="store_true", help="Publish a GitHub release after pushing to trigger a Claude Routine.")
+    parser.add_argument("--release-prefix", default="crm-refresh", help="Release tag prefix when --publish-release is used.")
     parser.add_argument("--once", action="store_true", help="Process the current workbook change once and exit.")
     args = parser.parse_args()
 
@@ -107,7 +125,7 @@ def main() -> int:
     try:
         if args.once:
             wait_until_stable(path, args.debounce)
-            push_workbook(path, args.branch, args.remote)
+            push_workbook(path, args.branch, args.remote, args.publish_release, args.release_prefix)
             return 0
 
         while True:
@@ -120,7 +138,7 @@ def main() -> int:
                 wait_until_stable(path, args.debounce)
                 last_signature = file_signature(path)
                 try:
-                    push_workbook(path, args.branch, args.remote)
+                    push_workbook(path, args.branch, args.remote, args.publish_release, args.release_prefix)
                 except Exception as exc:
                     print(f"[{timestamp()}] Push skipped: {exc}", file=sys.stderr)
     except KeyboardInterrupt:

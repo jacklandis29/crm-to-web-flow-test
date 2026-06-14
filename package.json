@@ -9,7 +9,9 @@
     "generate": "npm run refresh:data && npm run ai:local",
     "validate": "python3 scripts/ingest_crm_export.py data/crm-export-june-2026.xlsx --check && python3 scripts/validate_ai_summary.py",
     "watch:excel": "python3 scripts/watch_excel_and_push.py",
+    "watch:routine": "python3 scripts/watch_excel_and_push.py --publish-release",
     "push:excel": "python3 scripts/watch_excel_and_push.py --once",
+    "push:routine": "python3 scripts/watch_excel_and_push.py --once --publish-release",
     "serve": "python3 -m http.server 4173 -d site"
   }
 }

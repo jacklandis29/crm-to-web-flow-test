@@ -33,7 +33,15 @@ Use this for the primary Claude Routine path:
 
 [claude-routine-instructions.md](/Users/jack/Documents/crm-to-web-flow/docs/claude-routine-instructions.md)
 
-Recommended event: **Release published**. Push a workbook change, publish a release, and let the routine run the refresh and commit the generated files.
+Recommended event: **Release published**.
+
+Run:
+
+```bash
+npm run watch:routine
+```
+
+Then save the workbook. The watcher pushes the workbook with a `[routine]` commit marker and publishes a `crm-refresh-*` release. The Actions workflow skips `[routine]` commits, so the Claude Routine owns that refresh path.
 
 ## Manual Workflow Fallback
 

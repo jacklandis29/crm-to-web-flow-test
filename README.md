@@ -23,10 +23,16 @@ Then open [http://localhost:4173](http://localhost:4173).
 
 ## Fully Automated Demo
 
-Leave this running while you edit the workbook:
+Leave this running while you edit the workbook if you want GitHub Actions to run the AI step:
 
 ```bash
 npm run watch:excel
+```
+
+Leave this running instead if you want the Claude Routine to run after a release event:
+
+```bash
+npm run watch:routine
 ```
 
 Then save `data/crm-export-june-2026.xlsx`.
@@ -38,6 +44,8 @@ The watcher commits and pushes only the workbook. GitHub Actions then:
 3. Validates the AI summary.
 4. Commits generated site data to `main`.
 5. Deploys GitHub Pages from the same workflow.
+
+With `watch:routine`, the watcher also publishes a GitHub release. Your Claude Routine is configured for **Release published**, so that release is the event that wakes it.
 
 ## What To Point Out
 
@@ -88,6 +96,6 @@ For the full cloud demo:
 2. Enable GitHub Actions.
 3. In repo settings, enable GitHub Pages with source set to GitHub Actions.
 4. Add an `ANTHROPIC_API_KEY` repository secret if you want the workflow to run Claude Code Action.
-5. Run `npm run watch:excel` locally and save the workbook, or manually run `.github/workflows/crm-export-to-main.yml` as a fallback.
+5. Run `npm run watch:excel` for the GitHub Actions route, or `npm run watch:routine` for the Claude Routine route.
 
 Without `ANTHROPIC_API_KEY`, the workflow falls back to `scripts/simulate_ai_summary.py` so the demo still updates `main`.

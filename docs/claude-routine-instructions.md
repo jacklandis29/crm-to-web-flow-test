@@ -76,3 +76,13 @@ Give the routine permission to:
 8. The Claude Routine fires from the release event.
 9. Claude commits updated generated JSON files to `main`.
 10. GitHub Pages redeploys and the live site changes.
+
+## Automatic Local Trigger
+
+To publish the release automatically after saving Excel, run:
+
+```bash
+npm run watch:routine
+```
+
+This watcher commits and pushes the workbook, then publishes a `crm-refresh-*` release. That release is what wakes this Routine.
