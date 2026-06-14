@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "generatedBy": "claude-sonnet-4-6",
-    "generatedAt": "2026-06-14T22:00:00+00:00",
+    "generatedBy": "local-simulated-ai",
+    "generatedAt": "2026-06-14T22:05:38+00:00",
     "sourceFile": "site/data/pipeline.json",
-    "sourceSha256": "f33558bc742eb0641a2e5a872a9f4d2858045bb7b29fcc883ea7ffb20c965e05",
+    "sourceSha256": "ffe94315c766e4db4059b7936b2afead63a6a44dac141592f767b619607c4776",
     "dataAsOf": "2026-06-14",
     "guardrail": "AI copy is generated from validated metrics and does not modify numeric source data."
   },
   "hero": {
-    "headline": "Closed-won revenue is ahead of goal by $1,250,000",
-    "body": "The latest CRM refresh shows $3,250,000 in closed-won sales against a $2,000,000 goal — the team is ahead of target by $1,250,000, reaching 162.5% of attainment.",
+    "headline": "Closed-won revenue is behind goal by $250,000",
+    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against a $2,000,000 goal, leaving the team at 88% of target.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
@@ -19,40 +19,36 @@
   },
   "cards": [
     {
-      "title": "Goal exceeded",
-      "body": "Closed-won sales of $3,250,000 surpass the $2,000,000 goal by $1,250,000, landing at 162.5% attainment. Three opportunities have reached Closed Won status.",
+      "title": "Goal status changed",
+      "body": "Closed-won sales missed the $2,000,000 goal by $250,000. The website copy changed because the CRM-derived metric changed.",
       "sources": [
         "metrics.closedWon",
         "metrics.closedWonGoal",
         "metrics.closedWonDelta",
-        "metrics.closedWonAttainment",
-        "summaries.byStage[4].count"
+        "metrics.closedWonAttainment"
       ]
     },
     {
-      "title": "Pipeline health",
-      "body": "The validated export contains 12 opportunities totaling $8,780,000, with $6,152,500 in weighted pipeline and $4,840,000 still open.",
+      "title": "Pipeline context",
+      "body": "The validated export contains 12 opportunities totaling $8,200,000, with $5,241,300 in weighted pipeline.",
       "sources": [
         "metrics.totalRecords",
         "metrics.pipelineValue",
-        "metrics.weightedPipeline",
-        "metrics.openPipeline"
+        "metrics.weightedPipeline"
       ]
     },
     {
       "title": "Regional concentration",
-      "body": "West is the largest region at $4,410,000 across 4 opportunities, led by the Strategic segment.",
+      "body": "West is the largest region in this refresh at $3,830,000 across 4 opportunities.",
       "sources": [
         "summaries.byRegion[0].name",
         "summaries.byRegion[0].amount",
-        "summaries.byRegion[0].count",
-        "metrics.topRegion",
-        "metrics.topSegment"
+        "summaries.byRegion[0].count"
       ]
     },
     {
       "title": "Follow-up queue",
-      "body": "2 open opportunities have not been updated in 21+ days and are flagged for review.",
+      "body": "2 open opportunities have not been updated in 21+ days, so they stay visible for review.",
       "sources": [
         "metrics.staleOpenCount",
         "metadata.staleThresholdDays"

@@ -3,30 +3,30 @@
     "demoName": "Sanitized CRM to Web Flow",
     "sourceFile": "data/mock-crm.json",
     "sourceSheet": "mock_crm.opportunities",
-    "sourceSha256": "f33558bc742eb0641a2e5a872a9f4d2858045bb7b29fcc883ea7ffb20c965e05",
-    "generatedAt": "2026-06-14T21:55:59+00:00",
+    "sourceSha256": "ffe94315c766e4db4059b7936b2afead63a6a44dac141592f767b619607c4776",
+    "generatedAt": "2026-06-14T22:05:37+00:00",
     "dataAsOf": "2026-06-14",
     "staleThresholdDays": 21,
     "guardrail": "This file is a validated public snapshot of mock CRM data; AI-authored text lives in ai-summary.json.",
     "sourceSystem": "MockCRM",
-    "sourceRevision": 9,
-    "sourceUpdatedAt": "2026-06-14T21:44:02Z"
+    "sourceRevision": 10,
+    "sourceUpdatedAt": "2026-06-14T22:05:37Z"
   },
   "metrics": {
     "totalRecords": 12,
-    "pipelineValue": 8780000.0,
-    "weightedPipeline": 6152500.0,
-    "openPipeline": 4840000.0,
-    "closedWon": 3250000.0,
+    "pipelineValue": 8200000.0,
+    "weightedPipeline": 5241300.0,
+    "openPipeline": 5760000.0,
+    "closedWon": 1750000.0,
     "closedWonGoal": 2000000,
-    "closedWonDelta": 1250000.0,
-    "closedWonAttainment": 1.625,
+    "closedWonDelta": -250000.0,
+    "closedWonAttainment": 0.875,
     "closedLost": 690000.0,
-    "averageProbability": 0.6183,
+    "averageProbability": 0.5883,
     "staleOpenCount": 2,
     "topRegion": "West",
-    "topSegment": "Strategic",
-    "largestStage": "Closed Won"
+    "topSegment": "Enterprise",
+    "largestStage": "Negotiation"
   },
   "summaries": {
     "byStage": [
@@ -44,9 +44,9 @@
       },
       {
         "name": "Proposal",
-        "count": 2,
-        "amount": 795000.0,
-        "weightedAmount": 450150.0
+        "count": 3,
+        "amount": 1715000.0,
+        "weightedAmount": 1038950.0
       },
       {
         "name": "Negotiation",
@@ -56,9 +56,9 @@
       },
       {
         "name": "Closed Won",
-        "count": 3,
-        "amount": 3250000.0,
-        "weightedAmount": 3250000.0
+        "count": 2,
+        "amount": 1750000.0,
+        "weightedAmount": 1750000.0
       },
       {
         "name": "Closed Lost",
@@ -71,8 +71,8 @@
       {
         "name": "West",
         "count": 4,
-        "amount": 4410000.0,
-        "weightedAmount": 3671000.0
+        "amount": 3830000.0,
+        "weightedAmount": 2759800.0
       },
       {
         "name": "Northeast",
@@ -97,8 +97,8 @@
       {
         "name": "Jordan Miles",
         "count": 4,
-        "amount": 4410000.0,
-        "weightedAmount": 3671000.0
+        "amount": 3830000.0,
+        "weightedAmount": 2759800.0
       },
       {
         "name": "Avery Chen",
@@ -121,16 +121,16 @@
     ],
     "bySegment": [
       {
-        "name": "Strategic",
-        "count": 3,
-        "amount": 3630000.0,
-        "weightedAmount": 3078200.0
-      },
-      {
         "name": "Enterprise",
         "count": 4,
         "amount": 3295000.0,
         "weightedAmount": 1833300.0
+      },
+      {
+        "name": "Strategic",
+        "count": 3,
+        "amount": 3050000.0,
+        "weightedAmount": 2167000.0
       },
       {
         "name": "Mid-Market",
@@ -188,6 +188,20 @@
       "weightedAmount": 268800.0,
       "expectedCloseDate": "2026-09-14",
       "lastUpdated": "2026-05-16"
+    },
+    {
+      "opportunityId": "OPP-2026-002",
+      "account": "CivicGrid Energy",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 920000.0,
+      "probability": 0.64,
+      "weightedAmount": 588800.0,
+      "expectedCloseDate": "2026-08-03",
+      "lastUpdated": "2026-06-14"
     },
     {
       "opportunityId": "OPP-2026-004",
@@ -258,20 +272,6 @@
       "weightedAmount": 237850.0,
       "expectedCloseDate": "2026-07-09",
       "lastUpdated": "2026-06-13"
-    },
-    {
-      "opportunityId": "OPP-2026-002",
-      "account": "CivicGrid Energy",
-      "segment": "Strategic",
-      "region": "West",
-      "owner": "Jordan Miles",
-      "stage": "Closed Won",
-      "forecastCategory": "Best Case",
-      "amount": 1500000.0,
-      "probability": 1.0,
-      "weightedAmount": 1500000.0,
-      "expectedCloseDate": "2026-08-03",
-      "lastUpdated": "2026-06-14"
     },
     {
       "opportunityId": "OPP-2026-012",
