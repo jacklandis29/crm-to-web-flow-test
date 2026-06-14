@@ -48,6 +48,19 @@ The lead copy should say whether closed-won sales are ahead of or behind goal us
 - `metrics.closedWonDelta`
 - `metrics.closedWonAttainment`
 
+## Change Narrative
+
+When `pipeline.changeReport.hasChanges` is true, `ai-summary.json` should include a
+top-level `change` object that leads with what moved this refresh:
+
+- `headline`, `body` — what changed (named opportunity, from/to, metric ripple), with
+  `sources` keys for every figure.
+- `rationale` — **why it matters**, drawn from `context/business-context.md` (the org and
+  account knowledge). This is qualitative interpretation: it carries no numbers and needs no
+  source keys. The numbers stay in `body`; the meaning goes in `rationale`.
+
+Omit `change` when there are no changes.
+
 ## Commit Scope
 
 For an automated refresh commit, include only:

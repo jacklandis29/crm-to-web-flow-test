@@ -2,9 +2,9 @@
   "metadata": {
     "system": "MockCRM",
     "environment": "sanitized-demo",
-    "revision": 19,
-    "updatedAt": "2026-06-14T23:33:13Z",
-    "changedBy": "demo.crm.user",
+    "revision": 18,
+    "updatedAt": "2026-06-14T22:34:43Z",
+    "changedBy": "demo.reset.user",
     "description": "Synthetic CRM data used to demonstrate a CRM-to-website automation flow. Baseline starts behind goal so the demo change is obvious."
   },
   "opportunities": [
@@ -16,10 +16,10 @@
       "owner": "Avery Chen",
       "stage": "Negotiation",
       "forecastCategory": "Commit",
-      "amount": 9185000.0,
+      "amount": 1185000,
       "probability": 0.82,
       "expectedCloseDate": "2026-07-19",
-      "lastUpdated": "2026-06-14"
+      "lastUpdated": "2026-06-12"
     },
     {
       "opportunityId": "OPP-2026-002",
@@ -419,19 +419,6 @@
         "probability": {
           "from": 1.0,
           "to": 0.64
-        }
-      }
-    },
-    {
-      "id": "evt-20260614-233313Z",
-      "type": "opportunity.updated",
-      "opportunityId": "OPP-2026-001",
-      "createdAt": "2026-06-14T23:33:13Z",
-      "actor": "demo.crm.user",
-      "changes": {
-        "amount": {
-          "from": 1185000,
-          "to": 9185000.0
         }
       }
     }

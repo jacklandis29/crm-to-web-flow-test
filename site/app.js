@@ -99,6 +99,15 @@ function renderChange(summary) {
   banner.hidden = false;
   $("#changeHeadline").textContent = summary.change.headline;
   $("#changeBody").textContent = summary.change.body;
+
+  const why = $("#changeWhy");
+  if (summary.change.rationale) {
+    why.innerHTML = `<strong>Why it matters</strong> ${summary.change.rationale}`;
+    why.hidden = false;
+  } else {
+    why.hidden = true;
+  }
+
   $("#changeSources").innerHTML = sourceChips(summary.change.sources);
 }
 

@@ -151,6 +151,23 @@ h1 {
   font-size: 1.04rem;
   line-height: 1.5;
 }
+.change-why {
+  border-left: 3px solid var(--brand);
+  border-radius: 0 8px 8px 0;
+  background: var(--brand-soft);
+  padding: 11px 14px;
+  color: var(--ink);
+  font-size: 1rem;
+}
+.change-why strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--brand);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
 
 /* ---------- Goal banner ---------- */
 .goal-card {

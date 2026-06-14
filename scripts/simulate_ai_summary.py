@@ -48,6 +48,64 @@ def largest_closed_won(opportunities: list[dict[str, Any]]) -> tuple[int, dict[s
     return max(won, key=lambda pair: pair[1]["amount"])
 
 
+# Qualitative "why it matters" context for the deterministic stand-in. The cloud
+# Claude Routine reasons from context/business-context.md directly and writes
+# richer rationale; this keeps the local rehearsal believable. No numbers here.
+ACCOUNT_CONTEXT = {
+    "Northstar Logistics": "our anchor Northeast logistics alliance",
+    "CivicGrid Energy": "our flagship West-region energy partner",
+    "Harborview Health": "our healthcare beachhead in the Southeast",
+    "Apex Mobility": "a key proof point for the mid-market mobility motion",
+    "Blue Ridge County": "a public-sector reference account",
+    "Prairie DataWorks": "an early-stage Midwest data partner",
+    "SummitWorks Manufacturing": "an industrial alliance in the West",
+    "Lakefront Schools": "part of our Northeast public-sector push",
+    "Orchard Financial": "a financial-services pursuit",
+    "Redwood Transit": "a long-cycle but high-value West transit partner",
+    "Keystone Robotics": "a near-term Midwest mid-market opportunity",
+    "Pinnacle BioSystems": "our cornerstone West-region strategic win",
+}
+SEGMENT_CONTEXT = {
+    "Enterprise": "an enterprise alliance",
+    "Strategic": "a strategic partnership",
+    "Mid-Market": "a mid-market opportunity",
+    "Public Sector": "a public-sector pursuit",
+}
+
+
+def build_rationale(lead: dict[str, Any], opp: dict[str, Any] | None) -> str:
+    """Compose a plausible "why it matters" from the account's role + the change.
+
+    Qualitative interpretation only — it carries no figures, so it needs no
+    source keys. The factual numbers live in the change body, which is sourced.
+    """
+    account = lead["account"]
+    sig = ACCOUNT_CONTEXT.get(account) or SEGMENT_CONTEXT.get((opp or {}).get("segment"), "a tracked partnership")
+    region = (opp or {}).get("region", "region")
+    fields = lead.get("fields", {})
+    change_type = lead.get("changeType")
+
+    if change_type == "added":
+        return f"{account} is {sig} — a new entry like this widens the top of the pipeline and is worth early attention."
+    if change_type == "removed":
+        return f"{account} is {sig} — dropping out is a prompt to revisit our position in that account."
+
+    stage = fields.get("stage")
+    amount = fields.get("amount")
+    if stage and stage.get("to") == "Closed Won":
+        return f"{account} is {sig} — booking it converts pipeline into realized partnership value and moves us against goal."
+    if stage and stage.get("to") == "Closed Lost":
+        return f"{account} is {sig} — a loss here is a signal to revisit our positioning in that sector."
+    if amount:
+        if amount.get("delta", 0) > 0:
+            return (
+                f"{account} is {sig} — a jump of this size typically signals an expanded scope ahead of a "
+                f"renewal, which is a strong leading indicator for the {region} book."
+            )
+        return f"{account} is {sig} — a reduction like this usually means a trimmed scope or a renegotiation, and is worth flagging."
+    return f"{account} is {sig} — a change worth watching as it develops."
+
+
 def _lead_change(report: dict[str, Any]) -> dict[str, Any] | None:
     """Pick the single most demo-worthy opportunity change to lead with."""
     opp_changes = report.get("opportunities", [])
@@ -143,7 +201,16 @@ def build_change_block(pipeline: dict[str, Any], report: dict[str, Any] | None) 
     if not ordered:
         ordered = ["metrics.pipelineValue"]
 
-    return {"headline": headline, "body": body.strip(), "sources": ordered}
+    change = {"headline": headline, "body": body.strip(), "sources": ordered}
+    if lead is not None:
+        index = lead.get("index")
+        opp = (
+            pipeline["opportunities"][index]
+            if index is not None and index < len(pipeline["opportunities"])
+            else None
+        )
+        change["rationale"] = build_rationale(lead, opp)
+    return change
 
 
 def build_summary(pipeline: dict[str, Any], mode: str) -> dict[str, Any]:

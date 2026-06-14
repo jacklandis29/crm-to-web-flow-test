@@ -1,11 +1,11 @@
 {
   "run": {
-    "generatedAt": "2026-06-14T23:34:00+00:00",
+    "generatedAt": "2026-06-14T22:56:54+00:00",
     "sourceFile": "data/mock-crm.json",
     "sourceSheet": "mock_crm.opportunities",
-    "sourceSha256": "c0b1f5c1620150f3030127b11c2252f3afb56618af07561e7e2a35f11192d4a3",
+    "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
     "sourceSystem": "MockCRM",
-    "sourceRevision": 19
+    "sourceRevision": 18
   },
   "checks": [
     {
@@ -71,8 +71,8 @@
       "status": "pass",
       "detail": "The public website snapshot includes the CRM revision and source hash.",
       "evidence": {
-        "revision": 19,
-        "sourceSha256": "c0b1f5c1620150f3030127b11c2252f3afb56618af07561e7e2a35f11192d4a3"
+        "revision": 18,
+        "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15"
       }
     }
   ]

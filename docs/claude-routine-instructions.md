@@ -38,28 +38,35 @@ Steps:
 5. Read site/data/pipeline.json. This is the validated source of truth for all published numbers.
    - It includes a `changeReport` block describing what moved since the last published
      snapshot (which opportunities changed, from/to values, and metric deltas).
-6. Update site/data/ai-summary.json as the AI-authored copy step.
+6. Read context/business-context.md. This is your qualitative knowledge of the org and the
+   accounts — what each partnership is and how to read a change strategically. Use it to
+   explain WHY a change matters. It contains no numbers; never take a figure from it.
+7. Update site/data/ai-summary.json as the AI-authored copy step.
    - Do not change any numeric facts.
    - Do not edit data/mock-crm.json.
    - Do not manually edit site/data/pipeline.json.
    - Do not manually edit site/data/audit-log.json.
-   - Every substantive claim in the copy must include source keys that resolve into site/data/pipeline.json.
+   - Every numeric claim in the copy must include source keys that resolve into site/data/pipeline.json.
    - The lead copy must explicitly say whether closed-won sales are ahead of or behind the goal using metrics.closedWon, metrics.closedWonGoal, metrics.closedWonDelta, and metrics.closedWonAttainment.
-   - If `changeReport.hasChanges` is true, add a top-level `change` object ({headline, body,
-     sources}) that leads with WHAT CHANGED this refresh — name the opportunity, state the
-     from/to, and quantify the ripple into the metrics. Cite the changed opportunity's current
-     value (e.g. opportunities[i].amount) and the moved metrics. Omit `change` when there are
-     no changes.
-7. Run:
+   - If `changeReport.hasChanges` is true, add a top-level `change` object with:
+     - `headline` and `body` — WHAT CHANGED: name the opportunity, the from/to, and the ripple
+       into the metrics. Cite the changed opportunity's current value (e.g. opportunities[i].amount)
+       and the moved metrics in `sources`.
+     - `rationale` — WHY IT MATTERS: one or two confident sentences grounded in
+       context/business-context.md (the account's role + what this kind of move typically
+       signals). This is qualitative interpretation, so it carries no figures and needs no
+       source keys. Say what a move "typically signals," not what definitely happened.
+     - Omit `change` entirely when there are no changes.
+8. Run:
    npm run validate
-8. If validation fails, fix only site/data/ai-summary.json unless the failure says the CRM sync step failed.
-9. Commit only these files to main:
+9. If validation fails, fix only site/data/ai-summary.json unless the failure says the CRM sync step failed.
+10. Commit only these files to main:
    - site/data/pipeline.json
    - site/data/audit-log.json
    - site/data/ai-summary.json
-10. Use this commit message:
+11. Use this commit message:
    Refresh website data and AI copy from mock CRM
-11. Push directly to main.
+12. Push directly to main.
 
 Important:
 The CRM owns the numbers. The deterministic sync owns validation. The AI owns only the summary language after validation. If there are no generated file changes, do not create an empty commit.

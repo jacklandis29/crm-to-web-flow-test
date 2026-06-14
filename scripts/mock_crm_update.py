@@ -72,16 +72,15 @@ def publish_release(branch: str, prefix: str) -> None:
 
     database = load_database(DEFAULT_CRM_PATH)
     revision = database.get("metadata", {}).get("revision")
-    tag = f"{prefix}-rev-{revision}" if revision is not None else f"{prefix}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-    title = f"Mock CRM refresh rev {revision}" if revision is not None else f"Mock CRM refresh {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+    # Always-unique tag (timestamp suffix) so repeated demo takes each fire the
+    # routine — a reused tag would be rejected and silently skip the trigger.
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    tag = f"{prefix}-rev-{revision}-{stamp}" if revision is not None else f"{prefix}-{stamp}"
+    title = f"Mock CRM refresh rev {revision}" if revision is not None else f"Mock CRM refresh {stamp}"
     notes = (
         f"Mock CRM revision {revision} changed. "
         "Claude Routine should query the CRM snapshot and update website copy."
     )
-    existing = run(["gh", "release", "view", tag], check=False)
-    if existing.returncode == 0:
-        print(f"Release {tag} already exists; not publishing a duplicate Routine trigger.")
-        return
 
     run(["gh", "release", "create", tag, "--target", branch, "--title", title, "--notes", notes])
     print(f"Published release {tag}.")

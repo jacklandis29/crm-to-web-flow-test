@@ -16,6 +16,7 @@
     "demo:win": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1250000 && npm run generate && npm run validate",
     "demo:reset": "python3 scripts/reset_demo_baseline.py && npm run validate",
     "cloud:push": "python3 scripts/publish_crm_change.py",
+    "cloud:restore": "python3 scripts/restore_baseline.py",
     "cloud:win": "python3 scripts/mock_crm_update.py --opportunity OPP-2026-002 --stage \"Closed Won\" --probability 1 --amount 1250000 --commit --push --release",
     "cloud:reset": "python3 scripts/reset_demo_baseline.py --commit --push"
   }
