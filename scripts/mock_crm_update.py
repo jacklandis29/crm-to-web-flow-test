@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -52,6 +53,12 @@ def push_with_rebase_retry(remote: str, branch: str) -> None:
 
 
 def publish_release(branch: str, prefix: str) -> None:
+    if not shutil.which("gh"):
+        raise RuntimeError(
+            "GitHub CLI (`gh`) is required to publish the Release event that wakes the Claude Routine. "
+            "Install it with `brew install gh`, then run `gh auth login`, then rerun `npm run crm:release`."
+        )
+
     tag = f"{prefix}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
     title = f"Mock CRM refresh {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
     notes = "Mock CRM revision changed. Claude Routine should query the CRM snapshot and update website copy."
