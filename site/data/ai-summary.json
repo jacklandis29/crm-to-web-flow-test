@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "generatedBy": "github-actions-local-fallback",
-    "generatedAt": "2026-06-14T21:41:29+00:00",
+    "generatedBy": "claude-sonnet-4-6",
+    "generatedAt": "2026-06-14T21:55:52+00:00",
     "sourceFile": "site/data/pipeline.json",
-    "sourceSha256": "044d1d411f237ca15f3ee1b39b6bf30641d5e2dafdbc1453e3e256da294b45c6",
-    "dataAsOf": "2026-06-13",
+    "sourceSha256": "f33558bc742eb0641a2e5a872a9f4d2858045bb7b29fcc883ea7ffb20c965e05",
+    "dataAsOf": "2026-06-14",
     "guardrail": "AI copy is generated from validated metrics and does not modify numeric source data."
   },
   "hero": {
-    "headline": "Closed-won revenue is behind goal by $250,000",
-    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against a $2,000,000 goal, leaving the team at 88% of target.",
+    "headline": "Closed-won revenue is ahead of goal by $1,250,000",
+    "body": "The latest CRM refresh shows $3,250,000 in closed-won sales against a $2,000,000 goal — 162.5% of target, putting the team $1,250,000 ahead of plan.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
@@ -19,27 +19,29 @@
   },
   "cards": [
     {
-      "title": "Goal status changed",
-      "body": "Closed-won sales missed the $2,000,000 goal by $250,000. The website copy changed because the CRM-derived metric changed.",
+      "title": "Exceeding goal by 62.5%",
+      "body": "Closed-won sales of $3,250,000 surpass the $2,000,000 goal by $1,250,000, reaching 162.5% attainment across 3 closed-won opportunities.",
       "sources": [
         "metrics.closedWon",
         "metrics.closedWonGoal",
         "metrics.closedWonDelta",
-        "metrics.closedWonAttainment"
+        "metrics.closedWonAttainment",
+        "summaries.byStage[4].count"
       ]
     },
     {
-      "title": "Pipeline context",
-      "body": "The validated export contains 12 opportunities totaling $8,200,000, with $5,241,300 in weighted pipeline.",
+      "title": "Strong open pipeline",
+      "body": "12 total opportunities carry $8,780,000 in pipeline value, with $6,152,500 weighted and $4,840,000 still open and active.",
       "sources": [
         "metrics.totalRecords",
         "metrics.pipelineValue",
-        "metrics.weightedPipeline"
+        "metrics.weightedPipeline",
+        "metrics.openPipeline"
       ]
     },
     {
-      "title": "Regional concentration",
-      "body": "West is the largest region in this refresh at $3,830,000 across 4 opportunities.",
+      "title": "West leads all regions",
+      "body": "The West region tops the leaderboard at $4,410,000 across 4 opportunities, representing the largest regional concentration in this refresh.",
       "sources": [
         "summaries.byRegion[0].name",
         "summaries.byRegion[0].amount",
@@ -48,7 +50,7 @@
     },
     {
       "title": "Follow-up queue",
-      "body": "2 open opportunities have not been updated in 21+ days, so they stay visible for review.",
+      "body": "2 open opportunities have not been updated in 21 or more days and remain visible for review.",
       "sources": [
         "metrics.staleOpenCount",
         "metadata.staleThresholdDays"
