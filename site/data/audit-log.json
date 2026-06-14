@@ -1,0 +1,68 @@
+{
+  "run": {
+    "generatedAt": "2026-06-14T20:00:04+00:00",
+    "sourceFile": "data/crm-export-june-2026.xlsx",
+    "sourceSheet": "CRM_Export",
+    "sourceSha256": "750f6852e098c4f347253a70aaa620ab1f3b8c6c94f8e4c908bd50b19c65eca6"
+  },
+  "checks": [
+    {
+      "name": "Required columns present",
+      "status": "pass",
+      "detail": "11 required columns found.",
+      "evidence": [
+        "Opportunity ID",
+        "Account",
+        "Segment",
+        "Region",
+        "Owner",
+        "Stage",
+        "Forecast Category",
+        "Amount",
+        "Probability",
+        "Expected Close Date",
+        "Last Updated"
+      ]
+    },
+    {
+      "name": "Rows validated",
+      "status": "pass",
+      "detail": "24 opportunity rows parsed from export.",
+      "evidence": {
+        "rowCount": 24,
+        "columns": [
+          "Opportunity ID",
+          "Account",
+          "Segment",
+          "Region",
+          "Owner",
+          "Stage",
+          "Forecast Category",
+          "Amount",
+          "Probability",
+          "Expected Close Date",
+          "Last Updated"
+        ]
+      }
+    },
+    {
+      "name": "Website data generated",
+      "status": "pass",
+      "detail": "Pipeline JSON and audit JSON were generated from the same source hash.",
+      "evidence": {
+        "pipelineJson": "site/data/pipeline.json",
+        "auditJson": "site/data/audit-log.json"
+      }
+    },
+    {
+      "name": "AI handoff ready",
+      "status": "pass",
+      "detail": "The AI copy step receives pipeline JSON after validation and is expected to update ai-summary.json only.",
+      "evidence": {
+        "aiInput": "site/data/pipeline.json",
+        "aiOutput": "site/data/ai-summary.json",
+        "numberEditing": "disallowed"
+      }
+    }
+  ]
+}

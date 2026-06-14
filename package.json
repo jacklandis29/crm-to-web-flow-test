@@ -1,0 +1,13 @@
+{
+  "name": "crm-to-web-flow-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sanitized CRM export to website automation demo.",
+  "scripts": {
+    "refresh:data": "python3 scripts/ingest_crm_export.py data/crm-export-june-2026.xlsx",
+    "ai:local": "python3 scripts/simulate_ai_summary.py",
+    "generate": "npm run refresh:data && npm run ai:local",
+    "validate": "python3 scripts/ingest_crm_export.py data/crm-export-june-2026.xlsx --check && python3 scripts/validate_ai_summary.py",
+    "serve": "python3 -m http.server 4173 -d site"
+  }
+}

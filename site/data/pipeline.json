@@ -1,0 +1,490 @@
+{
+  "metadata": {
+    "demoName": "Sanitized CRM to Web Flow",
+    "sourceFile": "data/crm-export-june-2026.xlsx",
+    "sourceSheet": "CRM_Export",
+    "sourceSha256": "750f6852e098c4f347253a70aaa620ab1f3b8c6c94f8e4c908bd50b19c65eca6",
+    "generatedAt": "2026-06-14T20:00:04+00:00",
+    "dataAsOf": "2026-06-13",
+    "staleThresholdDays": 21,
+    "guardrail": "This file contains validated CRM-derived metrics only; AI-authored text lives in ai-summary.json."
+  },
+  "metrics": {
+    "totalRecords": 24,
+    "pipelineValue": 14225000.0,
+    "weightedPipeline": 8502500.0,
+    "openPipeline": 11510000.0,
+    "closedWon": 1750000.0,
+    "closedWonGoal": 2000000,
+    "closedWonDelta": -250000.0,
+    "closedWonAttainment": 0.875,
+    "closedLost": 965000.0,
+    "averageProbability": 0.5162,
+    "staleOpenCount": 6,
+    "topRegion": "West",
+    "topSegment": "Enterprise",
+    "largestStage": "Negotiation"
+  },
+  "summaries": {
+    "byStage": [
+      {
+        "name": "Prospecting",
+        "count": 3,
+        "amount": 915000.0,
+        "weightedAmount": 200200.0
+      },
+      {
+        "name": "Qualification",
+        "count": 5,
+        "amount": 2390000.0,
+        "weightedAmount": 931900.0
+      },
+      {
+        "name": "Proposal",
+        "count": 7,
+        "amount": 4025000.0,
+        "weightedAmount": 2384750.0
+      },
+      {
+        "name": "Negotiation",
+        "count": 5,
+        "amount": 4180000.0,
+        "weightedAmount": 3235650.0
+      },
+      {
+        "name": "Closed Won",
+        "count": 2,
+        "amount": 1750000.0,
+        "weightedAmount": 1750000.0
+      },
+      {
+        "name": "Closed Lost",
+        "count": 2,
+        "amount": 965000.0,
+        "weightedAmount": 0.0
+      }
+    ],
+    "byRegion": [
+      {
+        "name": "West",
+        "count": 6,
+        "amount": 5365000.0,
+        "weightedAmount": 3686450.0
+      },
+      {
+        "name": "Northeast",
+        "count": 6,
+        "amount": 3420000.0,
+        "weightedAmount": 1824300.0
+      },
+      {
+        "name": "Midwest",
+        "count": 6,
+        "amount": 3130000.0,
+        "weightedAmount": 1908350.0
+      },
+      {
+        "name": "Southeast",
+        "count": 6,
+        "amount": 2310000.0,
+        "weightedAmount": 1083400.0
+      }
+    ],
+    "byOwner": [
+      {
+        "name": "Jordan Miles",
+        "count": 6,
+        "amount": 5365000.0,
+        "weightedAmount": 3686450.0
+      },
+      {
+        "name": "Avery Chen",
+        "count": 6,
+        "amount": 3420000.0,
+        "weightedAmount": 1824300.0
+      },
+      {
+        "name": "Theo Brooks",
+        "count": 6,
+        "amount": 3130000.0,
+        "weightedAmount": 1908350.0
+      },
+      {
+        "name": "Mina Patel",
+        "count": 6,
+        "amount": 2310000.0,
+        "weightedAmount": 1083400.0
+      }
+    ],
+    "bySegment": [
+      {
+        "name": "Enterprise",
+        "count": 7,
+        "amount": 5755000.0,
+        "weightedAmount": 3502400.0
+      },
+      {
+        "name": "Strategic",
+        "count": 5,
+        "amount": 4435000.0,
+        "weightedAmount": 2923250.0
+      },
+      {
+        "name": "Public Sector",
+        "count": 4,
+        "amount": 1910000.0,
+        "weightedAmount": 1222500.0
+      },
+      {
+        "name": "Mid-Market",
+        "count": 4,
+        "amount": 1255000.0,
+        "weightedAmount": 530250.0
+      },
+      {
+        "name": "Commercial",
+        "count": 4,
+        "amount": 870000.0,
+        "weightedAmount": 324100.0
+      }
+    ]
+  },
+  "opportunities": [
+    {
+      "opportunityId": "OPP-2026-023",
+      "account": "SignalWorks Telecom",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Prospecting",
+      "forecastCategory": "Pipeline",
+      "amount": 520000.0,
+      "probability": 0.24,
+      "weightedAmount": 124800.0,
+      "expectedCloseDate": "2026-10-09",
+      "lastUpdated": "2026-06-03"
+    },
+    {
+      "opportunityId": "OPP-2026-006",
+      "account": "Prairie DataWorks",
+      "segment": "Mid-Market",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Prospecting",
+      "forecastCategory": "Pipeline",
+      "amount": 215000.0,
+      "probability": 0.2,
+      "weightedAmount": 43000.0,
+      "expectedCloseDate": "2026-10-02",
+      "lastUpdated": "2026-06-01"
+    },
+    {
+      "opportunityId": "OPP-2026-012",
+      "account": "Sunfield Agriculture",
+      "segment": "Commercial",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Prospecting",
+      "forecastCategory": "Pipeline",
+      "amount": 180000.0,
+      "probability": 0.18,
+      "weightedAmount": 32400.0,
+      "expectedCloseDate": "2026-10-18",
+      "lastUpdated": "2026-05-20"
+    },
+    {
+      "opportunityId": "OPP-2026-010",
+      "account": "Redwood Transit",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Qualification",
+      "forecastCategory": "Pipeline",
+      "amount": 890000.0,
+      "probability": 0.38,
+      "weightedAmount": 338200.0,
+      "expectedCloseDate": "2026-09-29",
+      "lastUpdated": "2026-06-06"
+    },
+    {
+      "opportunityId": "OPP-2026-003",
+      "account": "Harborview Health",
+      "segment": "Enterprise",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Qualification",
+      "forecastCategory": "Pipeline",
+      "amount": 640000.0,
+      "probability": 0.42,
+      "weightedAmount": 268800.0,
+      "expectedCloseDate": "2026-09-14",
+      "lastUpdated": "2026-05-16"
+    },
+    {
+      "opportunityId": "OPP-2026-018",
+      "account": "Riverbend Utilities",
+      "segment": "Public Sector",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Qualification",
+      "forecastCategory": "Pipeline",
+      "amount": 460000.0,
+      "probability": 0.4,
+      "weightedAmount": 184000.0,
+      "expectedCloseDate": "2026-09-19",
+      "lastUpdated": "2026-05-15"
+    },
+    {
+      "opportunityId": "OPP-2026-024",
+      "account": "Oak & Iron Supply",
+      "segment": "Commercial",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Qualification",
+      "forecastCategory": "Pipeline",
+      "amount": 245000.0,
+      "probability": 0.36,
+      "weightedAmount": 88200.0,
+      "expectedCloseDate": "2026-09-25",
+      "lastUpdated": "2026-05-17"
+    },
+    {
+      "opportunityId": "OPP-2026-014",
+      "account": "Maple Street Retail",
+      "segment": "Commercial",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Qualification",
+      "forecastCategory": "Pipeline",
+      "amount": 155000.0,
+      "probability": 0.34,
+      "weightedAmount": 52700.0,
+      "expectedCloseDate": "2026-09-03",
+      "lastUpdated": "2026-05-12"
+    },
+    {
+      "opportunityId": "OPP-2026-002",
+      "account": "CivicGrid Energy",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 920000.0,
+      "probability": 0.64,
+      "weightedAmount": 588800.0,
+      "expectedCloseDate": "2026-08-03",
+      "lastUpdated": "2026-06-10"
+    },
+    {
+      "opportunityId": "OPP-2026-013",
+      "account": "Clearwater Insurance",
+      "segment": "Enterprise",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 735000.0,
+      "probability": 0.61,
+      "weightedAmount": 448350.0,
+      "expectedCloseDate": "2026-08-08",
+      "lastUpdated": "2026-06-08"
+    },
+    {
+      "opportunityId": "OPP-2026-022",
+      "account": "Atlas Community Bank",
+      "segment": "Enterprise",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 710000.0,
+      "probability": 0.59,
+      "weightedAmount": 418900.0,
+      "expectedCloseDate": "2026-08-22",
+      "lastUpdated": "2026-06-07"
+    },
+    {
+      "opportunityId": "OPP-2026-016",
+      "account": "MetroBridge Housing",
+      "segment": "Public Sector",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 575000.0,
+      "probability": 0.57,
+      "weightedAmount": 327750.0,
+      "expectedCloseDate": "2026-08-16",
+      "lastUpdated": "2026-06-04"
+    },
+    {
+      "opportunityId": "OPP-2026-004",
+      "account": "Apex Mobility",
+      "segment": "Mid-Market",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 430000.0,
+      "probability": 0.58,
+      "weightedAmount": 249400.0,
+      "expectedCloseDate": "2026-07-28",
+      "lastUpdated": "2026-06-05"
+    },
+    {
+      "opportunityId": "OPP-2026-008",
+      "account": "Lakefront Schools",
+      "segment": "Public Sector",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 365000.0,
+      "probability": 0.55,
+      "weightedAmount": 200750.0,
+      "expectedCloseDate": "2026-08-20",
+      "lastUpdated": "2026-05-19"
+    },
+    {
+      "opportunityId": "OPP-2026-019",
+      "account": "Horizon Media Group",
+      "segment": "Commercial",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Proposal",
+      "forecastCategory": "Best Case",
+      "amount": 290000.0,
+      "probability": 0.52,
+      "weightedAmount": 150800.0,
+      "expectedCloseDate": "2026-08-11",
+      "lastUpdated": "2026-06-09"
+    },
+    {
+      "opportunityId": "OPP-2026-001",
+      "account": "Northstar Logistics",
+      "segment": "Enterprise",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 1185000.0,
+      "probability": 0.82,
+      "weightedAmount": 971700.0,
+      "expectedCloseDate": "2026-07-19",
+      "lastUpdated": "2026-06-12"
+    },
+    {
+      "opportunityId": "OPP-2026-017",
+      "account": "Foresight Labs",
+      "segment": "Enterprise",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 1015000.0,
+      "probability": 0.79,
+      "weightedAmount": 801850.0,
+      "expectedCloseDate": "2026-07-23",
+      "lastUpdated": "2026-06-12"
+    },
+    {
+      "opportunityId": "OPP-2026-020",
+      "account": "ForgePoint Security",
+      "segment": "Strategic",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 865000.0,
+      "probability": 0.73,
+      "weightedAmount": 631450.0,
+      "expectedCloseDate": "2026-07-30",
+      "lastUpdated": "2026-06-11"
+    },
+    {
+      "opportunityId": "OPP-2026-007",
+      "account": "SummitWorks Manufacturing",
+      "segment": "Enterprise",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 780000.0,
+      "probability": 0.76,
+      "weightedAmount": 592800.0,
+      "expectedCloseDate": "2026-07-11",
+      "lastUpdated": "2026-06-11"
+    },
+    {
+      "opportunityId": "OPP-2026-011",
+      "account": "Keystone Robotics",
+      "segment": "Mid-Market",
+      "region": "Midwest",
+      "owner": "Theo Brooks",
+      "stage": "Negotiation",
+      "forecastCategory": "Commit",
+      "amount": 335000.0,
+      "probability": 0.71,
+      "weightedAmount": 237850.0,
+      "expectedCloseDate": "2026-07-09",
+      "lastUpdated": "2026-06-13"
+    },
+    {
+      "opportunityId": "OPP-2026-015",
+      "account": "Pinnacle BioSystems",
+      "segment": "Strategic",
+      "region": "West",
+      "owner": "Jordan Miles",
+      "stage": "Closed Won",
+      "forecastCategory": "Closed",
+      "amount": 1240000.0,
+      "probability": 1.0,
+      "weightedAmount": 1240000.0,
+      "expectedCloseDate": "2026-06-01",
+      "lastUpdated": "2026-06-01"
+    },
+    {
+      "opportunityId": "OPP-2026-005",
+      "account": "Blue Ridge County",
+      "segment": "Public Sector",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Closed Won",
+      "forecastCategory": "Closed",
+      "amount": 510000.0,
+      "probability": 1.0,
+      "weightedAmount": 510000.0,
+      "expectedCloseDate": "2026-06-07",
+      "lastUpdated": "2026-06-07"
+    },
+    {
+      "opportunityId": "OPP-2026-009",
+      "account": "Orchard Financial",
+      "segment": "Enterprise",
+      "region": "Northeast",
+      "owner": "Avery Chen",
+      "stage": "Closed Lost",
+      "forecastCategory": "Omitted",
+      "amount": 690000.0,
+      "probability": 0.0,
+      "weightedAmount": 0.0,
+      "expectedCloseDate": "2026-06-02",
+      "lastUpdated": "2026-06-02"
+    },
+    {
+      "opportunityId": "OPP-2026-021",
+      "account": "Greenline Packaging",
+      "segment": "Mid-Market",
+      "region": "Southeast",
+      "owner": "Mina Patel",
+      "stage": "Closed Lost",
+      "forecastCategory": "Omitted",
+      "amount": 275000.0,
+      "probability": 0.0,
+      "weightedAmount": 0.0,
+      "expectedCloseDate": "2026-05-29",
+      "lastUpdated": "2026-05-29"
+    }
+  ]
+}

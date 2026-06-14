@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sanitized CRM to Web Flow</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sanitized demo workflow</p>
+          <h1>CRM export to live website</h1>
+        </div>
+        <div class="refresh-pill">
+          <span class="status-dot"></span>
+          <span id="refreshStatus">Loading refresh status</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="summary-grid" aria-label="Pipeline summary">
+          <article class="metric metric-primary">
+            <span class="metric-label">Pipeline value</span>
+            <strong id="pipelineValue">$0</strong>
+            <small id="pipelineMeta">0 records</small>
+          </article>
+          <article class="metric">
+            <span class="metric-label">Weighted pipeline</span>
+            <strong id="weightedPipeline">$0</strong>
+            <small>Validated from export probabilities</small>
+          </article>
+          <article class="metric">
+            <span class="metric-label">Closed won</span>
+            <strong id="closedWon">$0</strong>
+            <small>Included for embedded BI parity</small>
+          </article>
+          <article class="metric warning">
+            <span class="metric-label">Needs follow-up</span>
+            <strong id="staleOpenCount">0</strong>
+            <small>Open items stale by threshold</small>
+          </article>
+        </section>
+
+        <section class="workbench" aria-label="Dashboard">
+          <div class="analytics-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Embedded analytics layer</p>
+                <h2>Power BI-style verified table</h2>
+              </div>
+              <span class="source-badge">Source locked</span>
+            </div>
+            <div class="bi-frame">
+              <div class="bi-chart" id="stageChart" aria-label="Pipeline by stage"></div>
+              <div class="bi-side">
+                <h3>Region mix</h3>
+                <div id="regionChart" class="region-chart"></div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="narrative-panel" aria-label="Generated narrative">
+            <div class="panel-heading compact">
+              <div>
+                <p class="eyebrow">Source-bound AI update</p>
+                <h2>AI-authored website copy</h2>
+              </div>
+              <span id="aiStatus" class="source-badge">AI pending</span>
+            </div>
+            <div id="narrativeCards" class="narrative-list"></div>
+          </aside>
+        </section>
+
+        <section class="data-section" aria-label="Opportunity detail">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Sanitized CRM export</p>
+              <h2>Opportunity rows used by the site</h2>
+            </div>
+            <span id="sourceHash" class="hash-badge"></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Account</th>
+                  <th>Region</th>
+                  <th>Stage</th>
+                  <th>Owner</th>
+                  <th>Amount</th>
+                  <th>Probability</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody id="opportunityRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="audit-section" aria-label="Automation audit">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Automation audit</p>
+              <h2>Guardrails before the PR opens</h2>
+            </div>
+          </div>
+          <div id="auditSteps" class="audit-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
