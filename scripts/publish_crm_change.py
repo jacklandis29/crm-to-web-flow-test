@@ -24,6 +24,13 @@ def crm_has_uncommitted_change() -> bool:
     return bool(result.stdout.strip())
 
 
+def crm_differs_from_remote(remote: str, branch: str) -> bool:
+    """True if the local CRM differs from what's already published on the remote."""
+    run(["git", "fetch", remote, branch, "-q"], check=False)
+    result = run(["git", "diff", "--quiet", f"{remote}/{branch}", "--", "data/mock-crm.json"], check=False)
+    return result.returncode != 0
+
+
 def _head_revision() -> int | None:
     try:
         result = subprocess.run(["git", "show", "HEAD:data/mock-crm.json"], capture_output=True, text=True)
@@ -69,13 +76,20 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        if crm_has_uncommitted_change():
+        has_uncommitted = crm_has_uncommitted_change()
+        if not has_uncommitted and not crm_differs_from_remote(args.remote, args.branch):
+            print("Nothing to publish: the CRM already matches what's live.")
+            print("Edit a company first, then re-run. For example:")
+            print("  npm run crm:edit -- --opportunity OPP-2026-001 --amount 9185000")
+            return 1
+
+        if has_uncommitted:
             ensure_fresh_revision()
             run(["git", "add", "data/mock-crm.json"])
             run(["git", "commit", "-m", "Mock CRM update [routine]", "--", "data/mock-crm.json"])
             print("Committed data/mock-crm.json.")
         else:
-            print("No uncommitted CRM change found; pushing current state.")
+            print("Publishing an already-committed CRM change.")
 
         pull_latest(args.remote, args.branch)
         push_with_rebase_retry(args.remote, args.branch)
