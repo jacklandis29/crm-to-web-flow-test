@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedBy": "local-simulated-ai",
-    "generatedAt": "2026-06-14T22:56:55+00:00",
+    "generatedBy": "claude-sonnet-4-6",
+    "generatedAt": "2026-06-15T00:20:26+00:00",
     "sourceFile": "site/data/pipeline.json",
     "sourceSha256": "4152e013e6f2d981a39d74e638972f160704882aabddddccc33888e41811de15",
     "dataAsOf": "2026-06-14",
@@ -9,7 +9,7 @@
   },
   "hero": {
     "headline": "Closed-won sales are behind goal by $250,000",
-    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against the $2,000,000 goal \u2014 88% of target, a $250,000 gap to close. $5,760,000 of pipeline is still open and working to close it.",
+    "body": "The latest CRM refresh shows $1,750,000 in closed-won sales against the $2,000,000 goal — 88% of target, a $250,000 gap to close. $5,760,000 of pipeline is still open and working to close it.",
     "sources": [
       "metrics.closedWon",
       "metrics.closedWonGoal",
